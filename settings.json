@@ -12,7 +12,7 @@
     "version" : "1.0.0",
     "url" : "http://192.168.1.1:8080/api",
     "leadin" : "api"
-  }
+  },
   
   "gc100" : {
     "_comment"  : "Global Cache GC-100 serial interface",
@@ -24,6 +24,6 @@
   "amp" : {
     "_comment" : "Settings for th SR7400 amplifier",
     "normalvolume" : -32
-  },
+  }
 }
 

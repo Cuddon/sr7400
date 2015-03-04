@@ -1,12 +1,18 @@
 {
-  "_comment" : "",
+  "_comment"      : "Settings fro Marantz SR7400 web service",
   "_contributors" : ["Andrew Cuddon"],
-  "_website" : "http://www.cuddon.net/sr7400",
+  "_website"      : "http://www.cuddon.net/sr7400",
 
   "httpserver" : {
     "ip"   : "192.168.1.1",
     "port" : 8080
-},
+  },
+  
+  "api" : {
+    "version" : "1.0.0",
+    "url" : "http://192.168.1.1:8080/api",
+    "leadin" : "api"
+  }
   
   "gc100" : {
     "_comment"  : "Global Cache GC-100 serial interface",
@@ -19,11 +25,5 @@
     "_comment" : "Settings for th SR7400 amplifier",
     "normalvolume" : -32
   },
-  
-  "api" : {
-    "version" : "1.01",
-    "url" : "http://192.168.1.1:8080/api",
-    "leadin" : "api"
-  }
 }
 

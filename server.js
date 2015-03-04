@@ -3,19 +3,29 @@
   
   Marantz SR7400 web service
   
-  AppVersion 1.1
+  version: 1.0.0
   
-  TTDs
-    Jun a macro
-    Option for the request to return a JSON response (?return=json) rather than a simple text response
-    Automated service discovery for OpenHAB2
-    View command and result history/log
-  
-  Changes from 1.0
-    Added service discovery via zeroconf module
-    Ability to request configuration information (returns json)
-    Some refactoring
+  The MIT License (MIT)
 
+  Copyright (c) 2015 Andrew Cuddon
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
 
   API
     /api/requesttpe/requeststring               --> returns a string
@@ -36,7 +46,7 @@
     /api/config/mappings
     /api/config/help
 
-  Logs (all commands return the log)
+  Logs (all commands return the log) - Not yet implemented
     /api/logs/get
     /api/log/get
     /api/history/get

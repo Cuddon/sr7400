@@ -1,9 +1,15 @@
 {
-  "name": "sr7400-webservice",
+  "name": "sr7400",
   "version": "1.0.0",
-  "description": "Web service to control the Marantz SR7400 Sourround Sound amplifier.",
+  "description": "Web service to control the Marantz SR7400 surround sound receiver.",
+  "keywords"  : "Marantz surround sound receiver web GC-100 serial",
+  "homepage"  : "http://www.cuddon.net/sr7400",
+  "license" : "MIT",
   "main": "server.js",
-  "repository": "",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/Cuddon/sr7400"
+  },
   "author": "Andrew Cuddon <andrew.cuddon@gmail.com>",
   "dependencies": {
     "mdns": "2.2.2",

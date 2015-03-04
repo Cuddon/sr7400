@@ -5,12 +5,12 @@
     "commandmappings" : {
         "SELECT_INPUT_TBOX" : "SELECT_INPUT_DSS",
         "SELECT_INPUT_PS3"  : "SELECT_INPUT_DVD",
-        "SELECT_INPUT_AIRPORT_EXPRESS" : "SELECT_INPUT_VCR1"
+        "SELECT_INPUT_AIRPLAY" : "SELECT_INPUT_VCR1"
     },
     
     "statusmappings" : {
         "DSS"  : "TBOX",
         "PS3"  : "DVD",
-        "VCR1" : "AIRPORT_EXPRESS"
+        "VCR1" : "AIRPLAY"
     }
 }

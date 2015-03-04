@@ -1,0 +1,16 @@
+{
+    "_comment"  : "Mappings between std input names and actual devices (e.g. DSS -> TBOX)",
+    "_version"  : "0.0",
+
+    "commandmappings" : {
+        "SELECT_INPUT_TBOX" : "SELECT_INPUT_DSS",
+        "SELECT_INPUT_PS3"  : "SELECT_INPUT_DVD",
+        "SELECT_INPUT_AIRPORT_EXPRESS" : "SELECT_INPUT_VCR1"
+    },
+    
+    "statusmappings" : {
+        "DSS"  : "TBOX",
+        "PS3"  : "DVD",
+        "VCR1" : "AIRPORT_EXPRESS"
+    }
+}

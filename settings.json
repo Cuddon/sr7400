@@ -1,0 +1,29 @@
+{
+  "_comment" : "",
+  "_contributors" : ["Andrew Cuddon"],
+  "_website" : "http://www.cuddon.net/sr7400",
+
+  "httpserver" : {
+    "ip"   : "192.168.1.1",
+    "port" : 8080
+},
+  
+  "gc100" : {
+    "_comment"  : "Global Cache GC-100 serial interface",
+    "ip"   : "192.168.1.70",
+    "port_serial_1" : 4999,
+    "port_infrared_1" : 4998
+  },
+  
+  "amp" : {
+    "_comment" : "Settings for th SR7400 amplifier",
+    "normalvolume" : -32
+  },
+  
+  "api" : {
+    "version" : "1.01",
+    "url" : "http://192.168.1.1:8080/api",
+    "leadin" : "api"
+  }
+}
+

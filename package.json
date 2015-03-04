@@ -1,0 +1,12 @@
+{
+  "name": "sr7400-webservice",
+  "version": "1.0.0",
+  "description": "Web service to control the Marantz SR7400 Sourround Sound amplifier.",
+  "main": "server.js",
+  "repository": "",
+  "author": "Andrew Cuddon <andrew.cuddon@gmail.com>",
+  "dependencies": {
+    "mdns": "2.2.2",
+    "q" : "1.2.0"
+  }
+}

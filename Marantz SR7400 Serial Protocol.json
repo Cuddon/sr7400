@@ -1,0 +1,424 @@
+{
+    "_protocol" : "Marantz SR7400 Surround Sound Amplifier serial interface",
+    "_source"   : "doc",
+    "_version"  : "0.0",
+
+    "_comment"  : "lists of objects",
+    
+"valid_commandtypes" : ["command"],
+    
+"commands" : {
+    "TURN_POWER_ON"  : {"code" : "@1AA", "response" : "ACK", "comment" : "Power is on"},
+    "TURN_POWER_OFF" : {"code" : "@1AB", "response" : "ACK", "comment" : "Power is on Standby"},
+    "TOGGLE_POWER"   : {"code" : "@1AC", "response" : "ACK", "comment" : "Toggles power between On and Standby"},
+
+    "SELECT_INPUT_DSS"   : {"code" : "@1CA", "response" : "ACK"},
+    "SELECT_INPUT_TV"    : {"code" : "@1CB", "response" : "ACK"},
+    "SELECT_INPUT_DVD"   : {"code" : "@1CD", "response" : "ACK"},
+    "SELECT_INPUT_VCR1"  : {"code" : "@1CE", "response" : "ACK"},
+    "SELECT_INPUT_AUX1"  : {"code" : "@1CG", "response" : "ACK"},
+    "SELECT_INPUT_AUX2"  : {"code" : "@1CH", "response" : "ACK"},
+    "SELECT_INPUT_CD"    : {"code" : "@1CJ", "response" : "ACK"},
+    "SELECT_INPUT_TAPE"  : {"code" : "@1CK", "response" : "ACK"},
+    "SELECT_INPUT_CD-R"  : {"code" : "@1CL", "response" : "ACK"},
+    "SELECT_INPUT_FM"    : {"code" : "@1CN", "response" : "ACK"},
+    "SELECT_INPUT_AM"    : {"code" : "@1CO", "response" : "ACK"},
+    "SELECT_INPUT_TUNER" : {"code" : "@1CQ", "response" : "ACK"},
+
+    "SET_MULTI_CHANNEL_7.1_INPUT_ON"  : {"code" : "@1CS", "response" : "ACK"},
+    "SET_MULTI_CHANNEL_7.1_INPUT_OFF" : {"code" : "@1CT", "response" : "ACK"},
+
+    "SET_INPUT_SIGNAL_TO_A_D_DIG_AUTO"  : {"code" : "@1DA", "response" : "ACK"},
+    "SET_INPUT_SIGNAL_TO_A_D_DIG_FIXED" : {"code" : "@1DB", "response" : "ACK"},
+    "SET_INPUT_SIGNAL_TO_A_D_ANALOG"    : {"code" : "@1DC", "response" : "ACK"},
+
+    "TURN_VOLUME_UP"       : {"code" : "@1EA", "response" : "ACK"},
+    "TURN_VOLUME_DOWN"     : {"code" : "@1EB", "response" : "ACK"},
+    "TURN_VOLUME_UP_5DB"   : {"code" : "@1EC", "response" : "ACK"},
+    "TURN_VOLUME_DOWN_5DB" : {"code" : "@1ED", "response" : "ACK"},
+
+    "TURN_BASS_UP"     : {"code" : "@1FA", "response" : "ACK"},
+    "TURN_BASS_DOWN"   : {"code" : "@1FB", "response" : "ACK"},
+    "TURN_TREBLE_UP"   : {"code" : "@1FC", "response" : "ACK"},
+    "TURN TREBLE DOWN" : {"code" : "@1FD", "response" : "ACK"},
+
+    "TURN_MUTE_OFF" : {"code" : "@1GA", "response" : "ACK"},
+    "TURN_MUTE_ON"  : {"code" : "@1GB", "response" : "ACK"},
+
+    "TURN_VIDEO_MUTE_OFF" : {"code" : "@1HA", "response" : "ACK"},
+    "TURN_VIDEO_MUTE_ON"  : {"code" : "@1HB", "response" : "ACK"},
+
+    "TURN_ATTENUATION_OFF" : {"code" : "@1IA", "response" : "ACK"},
+    "TURN_ATTENUATION_ON"  : {"code" : "@1IB", "response" : "ACK"},
+
+    "TURN_SPEAKER_A_OFF" : {"code" : "@1JA", "response" : "ACK"},
+    "TURN_SPEAKER_A_ON"  : {"code" : "@1JB", "response" : "ACK"},
+    "TURN_SPEAKER_B_OFF" : {"code" : "@1KA", "response" : "ACK"},
+    "TURN_SPEAKER_B_ON"  : {"code" : "@1KB", "response" : "ACK"},
+
+    "TURN_SLEEP_OFF"     : {"code" : "@1LA", "response" : "ACK"},
+    "SET_SLEEP_TO_10min" : {"code" : "@1LB", "response" : "ACK"},
+    "SET_SLEEP_TO_20min" : {"code" : "@1LC", "response" : "ACK"},
+    "SET_SLEEP_TO_30min" : {"code" : "@1LD", "response" : "ACK"},
+    "SET_SLEEP_TO_40min" : {"code" : "@1LE", "response" : "ACK"},
+    "SET_SLEEP_TO_50min" : {"code" : "@1LF", "response" : "ACK"},
+    "SET_SLEEP_TO_60min" : {"code" : "@1LG", "response" : "ACK"},
+    "SET_SLEEP_TO_70min" : {"code" : "@1LH", "response" : "ACK"},
+    "SET_SLEEP_TO_80min" : {"code" : "@1LI", "response" : "ACK"},
+    "SET_SLEEP_TO_90min" : {"code" : "@1LJ", "response" : "ACK"},
+
+    "TOGGLE_DISPLAY" : {"code" : "@1MA", "response" : "ACK"},
+
+    "TURN_OSD_OFF" : {"code" : "@1NA", "response" : "ACK"},
+    "TURN_OSD_ON"  : {"code" : "@1NB", "response" : "ACK"},
+
+    "TURN_MENU_OFF"     : {"code" : "@1ZA", "response" : "ACK"},
+    "SELECT_MENU_OK"    : {"code" : "@1ZB", "response" : "ACK"},
+    "MOVE CURSOR_UP"    : {"code" : "@1ZC", "response" : "ACK"},
+    "MOVE_CURSOR_DOWN"  : {"code" : "@1ZD", "response" : "ACK"},
+    "MOVE_CURSOR_LEFT"  : {"code" : "@1ZE", "response" : "ACK"},
+    "MOVE_CURSOR_RIGHT" : {"code" : "@1ZF", "response" : "ACK"},
+
+    "CHANGE_TUNER_FREQUENCY_UP"   : {"code" : "@1PB", "response" : "ACK"},
+    "CHANGE_TUNER_FREQUENCY_DOWN" : {"code" : "@1PC", "response" : "ACK"},
+
+    "SET_TUNER_AUTO_UP_START_STOP"    : {"code" : "@1PD", "response" : "ACK"},
+    "SET_TUNER_AUTO_DOWN_START_STOP" : {"code" : "@1PE", "response" : "ACK"},
+    
+    "SET_TUNER_PRESET_INFO"   : {"code" : "@1QA", "response" : "ACK"},
+    "SET_TUNER_PRESET_P-SCAN" : {"code" : "@1QB", "response" : "ACK"},
+    "SET_TUNER_PRESET_UP"     : {"code" : "@1QC", "response" : "ACK"},
+    "SET_TUNER_PRESET_DOWN"   : {"code" : "@1QD", "response" : "ACK"},
+    
+    "SET_F-DIRECT_OFF" : {"code" : "@1RA", "response" : "ACK"},
+    "SET_F-DIRECT_ON"  : {"code" : "@1RB", "response" : "ACK"},
+    
+    "SET_TUNER_MODE_TO_STEREO" : {"code" : "@1RC", "response" : "ACK"},
+    "SET_TUNER_MODE_TO_MONO"   : {"code" : "@1RD", "response" : "ACK"},
+    
+    "SET_MEMO_CLR-CLR"  : {"code" : "@1RE", "response" : "ACK"},
+    "SET_MEMO_CLR-MEMO" : {"code" : "@1RF", "response" : "ACK"},
+
+    "SELECT_DIRECT_KEY_0" : {"code" : "@1SA", "response" : "ACK"},
+    "SELECT_DIRECT_KEY_1" : {"code" : "@1SB", "response" : "ACK"},
+    "SELECT_DIRECT_KEY_2" : {"code" : "@1SC", "response" : "ACK"},
+    "SELECT_DIRECT_KEY_3" : {"code" : "@1SD", "response" : "ACK"},
+    "SELECT_DIRECT_KEY_4" : {"code" : "@1SE", "response" : "ACK"},
+    "SELECT_DIRECT_KEY_5" : {"code" : "@1SF", "response" : "ACK"},
+    "SELECT_DIRECT_KEY_6" : {"code" : "@1SG", "response" : "ACK"},
+    "SELECT_DIRECT_KEY_7" : {"code" : "@1SH", "response" : "ACK"},
+    "SELECT_DIRECT_KEY_8" : {"code" : "@1SI", "response" : "ACK"},
+    "SELECT_DIRECT_KEY_9" : {"code" : "@1SJ", "response" : "ACK"},
+    
+    "SET_RDS_DISPLAY_MODE" : {"code" : "@1TA", "response" : "ACK"},
+    "SET_RDS_PTY"          : {"code" : "@1TB", "response" : "ACK"},
+
+    "SET_SURROUND_MODE_TO_AUTO"              : {"code" : "@1U0", "response" : "ACK"},
+    
+    "SET_SURROUND_MODE_TO_DOLBY-DIGITAL "    : {"code" : "@1U6", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_DD_PLIIX-MOVIE"    : {"code" : "@1U7", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_DD_PLIIX-MUSIC"    : {"code" : "@1U8", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_AAC_PLIIX-MOVIE"   : {"code" : "@1U9", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_AAC_PLIIX-MUSIC"   : {"code" : "@1UA", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_DOLBY_PLIIX-MOVIE" : {"code" : "@1UB", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_DOLBY_PLIIX-MUSIC" : {"code" : "@1UC", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_DOLBY_PLIIX-GAME"  : {"code" : "@1UD", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_DOLBY_PLII-MOVIE"  : {"code" : "@1UE", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_DOLBY_PLII-MUSIC"  : {"code" : "@1UF", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_DOLBY_PLII-GAME"   : {"code" : "@1UG", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_DOLBY_PROLOGIC"    : {"code" : "@1UH", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_EX/ES"             : {"code" : "@1UI", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_DOLBY_DIGITAL_EX"  : {"code" : "@1UK", "response" : "ACK"},
+
+    "SET_SURROUND_MODE_TO_DTS_ES"              : {"code" : "@1UL", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_NEO6-CINEMA"         : {"code" : "@1UO", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_NEO6-MUSIC"          : {"code" : "@1UP", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_MULTICHANNEL-STEREO" : {"code" : "@1UQ", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_DTS-MODE"            : {"code" : "@1UV", "response" : "ACK"},
+
+    "SET_SURROUND_MODE_TO_CSII-CINEMA" : {"code" : "@1UR", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_CSII-MUSIC"  : {"code" : "@1US", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_CSII-MONO"   : {"code" : "@1UT", "response" : "ACK"},
+
+    "SET_SURROUND_MODE_TO_VIRTUAL"       : {"code" : "@1Uc", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_VIRTUAL6.1"    : {"code" : "@1UJ", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_STEREO"        : {"code" : "@1Ud", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_SRS-MODE"      : {"code" : "@1UW", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_SOURCE-DIRECT" : {"code" : "@1UX", "response" : "ACK"},
+
+    "SET_SURROUND_MODE_TO_NEXT"     : {"code" : "@1UY", "response" : "ACK"},
+    "SET_SURROUND_MODE_TO_PREVIOUS" : {"code" : "@1UZ", "response" : "ACK"},
+
+    "TURN_TEST_TONE_OFF" : {"code" : "@1VA", "response" : "ACK"},
+    "TURN_TEST_TONE_ON"  : {"code" : "@1VB", "response" : "ACK"},
+
+    "TURN_NIGHT_OFF" : {"code" : "@1WA", "response" : "ACK"},
+    "TURN_NIGHT_ON"  : {"code" : "@1WB", "response" : "ACK"},
+
+    "TURN_HT-EQ_ON"  : {"code" : "@1XA", "response" : "ACK"},
+    "TURN_HT-EQ_OFF" : {"code" : "@1XB", "response" : "ACK"},
+
+    "TURN_MAIN+SUB" : {"code" : "@1YGA", "response" : "ACK"},
+    "TURN_MAIN"     : {"code" : "@1YGB", "response" : "ACK"},
+    "TURN_SUB"      : {"code" : "@1YGC", "response" : "ACK"},
+
+    "TURN_DC_TRIGGER_ON"  : {"code" : "@1YJA", "response" : "ACK"},
+    "TURN_DC_TRIGGER_OFF" : {"code" : "@1YJB", "response" : "ACK"},
+
+    "SET_MULTIROOM_MULTI ROOM OFF" : {"code" : "@1aA", "response" : "ACK"},
+    "SET_MULTIROOM_MULTI ROOM ON"  : {"code" : "@1aB", "response" : "ACK"},
+    
+    "SET_MULTIROOM_INPUT_DSS"   : {"code" : "@1cA", "response" : "ACK"},
+    "SET_MULTIROOM_INPUT_TV"    : {"code" : "@1cB", "response" : "ACK"},
+    "SET_MULTIROOM_INPUT_DVD"   : {"code" : "@1cD", "response" : "ACK"},
+    "SET_MULTIROOM_INPUT_VCR1"  : {"code" : "@1cE", "response" : "ACK"},
+    "SET_MULTIROOM_INPUT_AUX1"  : {"code" : "@1cG", "response" : "ACK"},
+    "SET_MULTIROOM_INPUT_AUX2"  : {"code" : "@1cH", "response" : "ACK"},
+    "SET_MULTIROOM_INPUT_CD"    : {"code" : "@1cJ", "response" : "ACK"},
+    "SET_MULTIROOM_INPUT_TAPE"  : {"code" : "@1cK", "response" : "ACK"},
+    "SET_MULTIROOM_INPUT_CD-R"  : {"code" : "@1cL", "response" : "ACK"},
+    "SET_MULTIROOM_INPUT_FM"    : {"code" : "@1cN", "response" : "ACK"},
+    "SET_MULTIROOM_INPUT_AM"    : {"code" : "@1cO", "response" : "ACK"},
+    "SET_MULTIROOM_INPUT_TUNER" : {"code" : "@1cQ", "response" : "ACK"},
+    
+    "SET_MULTIROOM_A_D_Toggle_" : {"code" : "@1dD", "response" : "ACK"},
+    
+    "SET_MULTIROOM_MULTI_VOL_UP"       : {"code" : "@1eA", "response" : "ACK"},
+    "SET_MULTIROOM_MULTI_VOL_DOWN"     : {"code" : "@1eB", "response" : "ACK"},
+    "SET_MULTIROOM_MULTI_VOL_VARIABLE" : {"code" : "@1fA", "response" : "ACK"},
+    "SET_MULTIROOM_MULTI_VOL_FIXED"    : {"code" : "@1fB", "response" : "ACK"},
+    
+    "SET_MULTIROOM_MULTI_ROOM_SPEAKER_OFF" : {"code" : "@1ja", "response" : "ACK"},
+    "SET_MULTIROOM_MULTI_ROOM_SPEAKER_ON" : {"code" : "@1jb", "response" : "ACK"},
+    "SET_MULTIROOM_MULTI_ROOM_SPEAKER_MUTE_OFF" : {"code" : "@1ga", "response" : "ACK"},
+    "SET_MULTIROOM_MULTI_ROOM_SPEAKER_MUTE_ON" : {"code" : "@1gb", "response" : "ACK"},
+    
+    "SET_MULTIROOM_MULTI_SPK_UP"       : {"code" : "@1hA", "response" : "ACK"},
+    "SET_MULTIROOM_MULTI_SPK_DOWN"     : {"code" : "@1hB", "response" : "ACK"},
+    "SET_MULTIROOM_MULTI_SPK_VARIABLE" : {"code" : "@1kA", "response" : "ACK"},
+    "SET_MULTIROOM_MULTI_SPK_FIXED"    : {"code" : "@1kB", "response" : "ACK"},
+    
+    "SET_MULTIROOM_MULTI_ROOM_MUTE_OFF" : {"code" : "@1gA", "response" : "ACK"},
+    "SET_MULTIROOM_MULTI_ROOM_MUTE_ON"  : {"code" : "@1gB", "response" : "ACK"},
+    
+    "SET_MULTIROOM_MR_SLEEP_OFF"   : {"code" : "@1lA", "response" : "ACK"},
+    "SET_MULTIROOM_MR_SLEEP_10min" : {"code" : "@1lB", "response" : "ACK"},
+    "SET_MULTIROOM_MR_SLEEP_20min" : {"code" : "@1lC", "response" : "ACK"},
+    "SET_MULTIROOM_MR_SLEEP_30min" : {"code" : "@1lD", "response" : "ACK"},
+    "SET_MULTIROOM_MR_SLEEP_40min" : {"code" : "@1lE", "response" : "ACK"},
+    "SET_MULTIROOM_MR_SLEEP_50min" : {"code" : "@1lF", "response" : "ACK"},
+    "SET_MULTIROOM_MR_SLEEP_60min" : {"code" : "@1lG", "response" : "ACK"},
+    "SET_MULTIROOM_MR_SLEEP_70min" : {"code" : "@1lH", "response" : "ACK"},
+    "SET_MULTIROOM_MR_SLEEP_80min" : {"code" : "@1lI", "response" : "ACK"},
+    "SET_MULTIROOM_MR_SLEEP_90min" : {"code" : "@1lJ", "response" : "ACK"},
+    
+    "SET_MULTIROOM_MULTI_ROOM_OSD_OFF" : {"code" : "@1nA", "response" : "ACK"},
+    "SET_MULTIROOM_MULTI_ROOM_OSD_ON"  : {"code" : "@1nB", "response" : "ACK"},
+    
+    "SET_MULTIROOM_FREQ_UP"   : {"code" : "@1pB", "response" : "ACK"},
+    "SET_MULTIROOM_FREQ_DOWN" : {"code" : "@1pC", "response" : "ACK"},
+    "SET_MULTIROOM_AUTO_UP_START_STOP"   : {"code" : "@1pD", "response" : "ACK"},
+    "SET_MULTIROOM_AUTO_DOWN_START_STOP" : {"code" : "@1pE", "response" : "ACK"},
+    "SET_MULTIROOM_P-SCAN"      : {"code" : "@1qB", "response" : "ACK"},
+    "SET_MULTIROOM_PRESET_UP"   : {"code" : "@1qC", "response" : "ACK"},
+    "SET_MULTIROOM_PRESET_DOWN" : {"code" : "@1qD", "response" : "ACK"},
+    "SET_MULTIROOM_F-DIRECT_OFF" : {"code" : "@1rA", "response" : "ACK"},
+    "SET_MULTIROOM_F-DIRECT_ON"  : {"code" : "@1rB", "response" : "ACK"},
+    "SET_MULTIROOM_STEREO" : {"code" : "@1rC", "response" : "ACK"},
+    "SET_MULTIROOM_MONO"   : {"code" : "@1rD", "response" : "ACK"},
+    
+    "SET_MULTIROOM_DIRECT_KEY_0" : {"code" : "@1sA", "response" : "ACK"},
+    "SET_MULTIROOM_DIRECT_KEY_1" : {"code" : "@1sB", "response" : "ACK"},
+    "SET_MULTIROOM_DIRECT_KEY_2" : {"code" : "@1sC", "response" : "ACK"},
+    "SET_MULTIROOM_DIRECT_KEY_3" : {"code" : "@1sD", "response" : "ACK"},
+    "SET_MULTIROOM_DIRECT_KEY_4" : {"code" : "@1sE", "response" : "ACK"},
+    "SET_MULTIROOM_DIRECT_KEY_5" : {"code" : "@1sF", "response" : "ACK"},
+    "SET_MULTIROOM_DIRECT_KEY_6" : {"code" : "@1sG", "response" : "ACK"},
+    "SET_MULTIROOM_DIRECT_KEY_7" : {"code" : "@1sH", "response" : "ACK"},
+    "SET_MULTIROOM_DIRECT_KEY_8" : {"code" : "@1sI", "response" : "ACK"},
+    "SET_MULTIROOM_DIRECT_KEY_9" : {"code" : "@1sJ", "response" : "ACK"},
+    
+    "SET_MULTIROOM_DSS"   : {"code" : "@1ca", "response" : "ACK"},
+    "SET_MULTIROOM_TV"    : {"code" : "@1cb", "response" : "ACK"},
+    "SET_MULTIROOM_DVD"   : {"code" : "@1cd", "response" : "ACK"},
+    "SET_MULTIROOM_VCR1"  : {"code" : "@1ce", "response" : "ACK"},
+    "SET_MULTIROOM_AUX1"  : {"code" : "@1cg", "response" : "ACK"},
+    "SET_MULTIROOM_AUX2"  : {"code" : "@1ch", "response" : "ACK"},
+    "SET_MULTIROOM_CD"    : {"code" : "@1cj", "response" : "ACK"},
+    "SET_MULTIROOM_TAPE"  : {"code" : "@1ck", "response" : "ACK"},
+    "SET_MULTIROOM_CD-R"  : {"code" : "@1cl", "response" : "ACK"},
+    "SET_MULTIROOM_FM"    : {"code" : "@1cn", "response" : "ACK"},
+    "SET_MULTIROOM_AM"    : {"code" : "@1co", "response" : "ACK"},
+    "SET_MULTIROOM_TUNER" : {"code" : "@1cq", "response" : "ACK"},
+
+    "GET_POWER_STATUS" :  {"code" : "@1?A", "response" : "FIXED STATUS"},
+
+    "GET_VIDEO_INPUT_STATUS" :  {"code" : "@1?B", "response" : "FIXED STATUS"},
+    "GET_AUDIO_INPUT_STATUS" :  {"code" : "@1?C", "response" : "FIXED STATUS"},
+    "GET_INPUT MODE STATUS"  :  {"code" : "@1?D", "response" : "FIXED STATUS"},
+
+    "GET_VOLUME_LEVEL"  :  {"code" : "@1?E", "response" : "VARIABLE STATUS"},
+    "GET_BASS_LEVEL"    :  {"code" : "@1?FA", "response" : "VARIABLE STATUS"},
+    "GET_UNKNOWN_LEVEL" :  {"code" : "@1?FB", "response" : "VARIABLE STATUS", "comment" : "Unknown function"},
+    "GET_TREBLE_LEVEL"  :  {"code" : "@1?FC", "response" : "VARIABLE STATUS"},
+
+    "GET_AUDIO_MUTE_STATUS" :  {"code" : "@1?G", "response" : "FIXED STATUS"},
+    "GET_VIDEO_MUTE_STATUS" :  {"code" : "@1?H", "response" : "FIXED STATUS"},
+
+    "GET_ATTENUATION_STATUS" :  {"code" : "@1?I", "response" : "FIXED STATUS"},
+
+    "GET_SLEEP_MODE_STATUS"  :  {"code" : "@1?L", "response" : "FIXED STATUS"},
+    "GET_LED_DISPLAY_STATUS" :  {"code" : "@1?M", "response" : "FIXED STATUS"},
+    "GET_OSD_STATUS"         :  {"code" : "@1?N", "response" : "FIXED STATUS"},
+    
+    "GET_TUNER_FREQUENCY_STATUS" :  {"code" : "@1?P", "response" : "VARIABLE STATUS"},
+    "GET_TUNER_PRESET_STATUS"    :  {"code" : "@1?Q", "response" : "VARIABLE STATUS"},
+    "GET_F-DIRECT_STATUS"        :  {"code" : "@1?R", "response" : "VARIABLE STATUS"},
+
+    "GET_SURROUND_MODE_STATUS" :  {"code" : "@1?U", "response" : "FIXED STATUS"},
+
+    "GET_TEST_TONE_STATUS"  :  {"code" : "@1?V", "response" : "FIXED STATUS"},
+    "GET_NIGHT_MODE_STATUS" :  {"code" : "@1?W", "response" : "FIXED STATUS"},
+    "GET_HT-EQ_STATUS"      :  {"code" : "@1?X", "response" : "FIXED STATUS"},
+    "GET_MENU_STATUS"       :  {"code" : "@1?Z", "response" : "FIXED STATUS"},
+    
+    "GET_SIGNAL_FORMAT_STATUS"  :  {"code" : "@1?u", "response" : "FIXED STATUS"},
+    "GET_SAMPLING_FREQ_STATUS" :  {"code" : "@1?v", "response" : "FIXED STATUS"},
+    "GET_CHANNEL_STATUS"        :  {"code" : "@1?w", "response" : "VARIABLE STATUS"},
+    "GET_CHANNEL_LEVEL"         :  {"code" : "@1?Y*", "response" : "VARIABLE STATUS"},
+    "GET_SPEAKER_BACK_STATUS"   :  {"code" : "@1?yF", "response" : "FIXED STATUS"},
+    "GET_BILINGUAL_STATUS"      :  {"code" : "@1?yG", "response" : "FIXED STATUS"},
+    
+    "GET_REMOTE_DC_TRIGGER_STATUS" :  {"code" : "@1?yJ", "response" : "FIXED STATUS"}
+},
+"statuscodes" : {
+    "\u0006" :  {"status" : "ACK", "function" : "ACKNOWLEDGED", "groupid" : 0},
+    "\u0015" :  {"status" : "NAK", "function" : "NOT ACKNOWLEDGED", "groupid" : 0},
+    
+    "@1AA" :  {"status" : "ON", "function" : "POWER", "groupid" : 0},
+    "@1AB" :  {"status" : "OFF", "function" : "POWER", "groupid" : 0},
+
+    "@1BA" :  {"status" : "DSS", "function" : "VIDEO INPUT", "groupid" : 0},
+    "@1BB" :  {"status" : "TV", "function" : "VIDEO INPUT", "groupid" : 0},
+    "@1BD" :  {"status" : "DVD", "function" : "VIDEO INPUT", "groupid" : 0},
+    "@1BE" :  {"status" : "VCR1", "function" : "VIDEO INPUT", "groupid" : 0},
+    "@1BG" :  {"status" : "AUX1", "function" : "VIDEO INPUT", "groupid" : 0},
+
+    "@1CA" :  {"status" : "DSS", "function" : "AUDIO INPUT", "groupid" : 0},
+    "@1CB" :  {"status" : "TV", "function" : "AUDIO INPUT", "groupid" : 0},
+    "@1CD" :  {"status" : "DVD", "function" : "AUDIO INPUT", "groupid" : 0},
+    "@1CE" :  {"status" : "VCR1", "function" : "AUDIO INPUT", "groupid" : 0},
+    "@1CG" :  {"status" : "AUX1", "function" : "AUDIO INPUT", "groupid" : 0},
+    "@1CH" :  {"status" : "AUX2", "function" : "AUDIO INPUT", "groupid" : 0},
+    "@1CJ" :  {"status" : "CD", "function" : "AUDIO INPUT", "groupid" : 0},
+    "@1CK" :  {"status" : "TAPE", "function" : "AUDIO INPUT", "groupid" : 0},
+    "@1CL" :  {"status" : "CD-R", "function" : "AUDIO INPUT", "groupid" : 0},
+    "@1CN" :  {"status" : "FM", "function" : "AUDIO INPUT", "groupid" : 0},
+    "@1CO" :  {"status" : "AM", "function" : "AUDIO INPUT", "groupid" : 0},
+    "@1CQ" :  {"status" : "TUNER", "function" : "AUDIO INPUT", "groupid" : 0},
+    "@1CR" :  {"status" : "MULTI-CHANNEL 7.1", "function" : "AUDIO INPUT", "groupid" : 0},
+
+    "@1DA" :  {"status" : "A/D DIG AUTO", "function" : "INPUT MODE", "groupid" : 0},
+    "@1DB" :  {"status" : "A/D DIG FIX", "function" : "INPUT MODE", "groupid" : 0},
+    "@1DC" :  {"status" : "A/D ANA", "function" : "INPUT MODE", "groupid" : 0},
+
+    "@1EB" :  {"status" : "MAX", "function" : "VOLUME", "groupid" : 0, "comment" : "Volume is at the Maximum level (=?)"},
+    "@1EC" :  {"status" : "MIN", "function" : "VOLUME", "groupid" : 0, "comment" : "Volume is at the Minimum level (=infinity)"},
+
+    "@1GA" :  {"status" : "OFF", "function" : "AUDIO MUTE", "groupid" : 0},
+    "@1GB" :  {"status" : "ON", "function" : "AUDIO MUTE", "groupid" : 0},
+
+    "@1HA" :  {"status" : "OFF", "function" : "VIDEO MUTE", "groupid" : 0},
+    "@1HB" :  {"status" : "ON", "function" : "VIDEO MUTE", "groupid" : 0},
+
+    "@1IA" :  {"status" : "OFF", "function" : "ATTENUATION", "groupid" : 0},
+    "@1IB" :  {"status" : "ON", "function" : "ATTENUATION", "groupid" : 0},
+
+    "@1JA" :  {"status" : "OFF", "function" : "SPEAKER A", "groupid" : 0},
+    "@1JB" :  {"status" : "ON", "function" : "SPEAKER A", "groupid" : 0},
+
+    "@1KA" :  {"status" : "OFF", "function" : "SPEAKER B", "groupid" : 0},
+    "@1KB" :  {"status" : "ON", "function" : "SPEAKER B", "groupid" : 0},
+
+    "@1LA" :  {"status" : "OFF", "function" : "SLEEP MODE", "groupid" : 0},
+    "@1LB" :  {"status" : "ON", "function" : "SLEEP MODE", "groupid" : 0},
+
+    "@1MA" :  {"status" : "ON (INPUT)", "function" : "DISPLAY STATUS", "groupid" : 0},
+    "@1MB" :  {"status" : "ON (SURR)", "function" : "DISPLAY STATUS", "groupid" : 0},
+    "@1MC" :  {"status" : "AUTO DISPLAY OFF", "function" : "DISPLAY STATUS", "groupid" : 0},
+    "@1MD" :  {"status" : "OFF", "function" : "DISPLAY STATUS", "groupid" : 0},
+
+    "@1NA" :  {"status" : "OFF", "function" : "ON SCREEN DISPLAY", "groupid" : 0},
+    "@1NB" :  {"status" : "ON", "function"  : "ON SCREEN DISPLAY", "groupid" : 0},
+
+    "@1OA" :  {"status" : "OFF", "function" : "MENU", "groupid" : 0},
+    "@1OB" :  {"status" : "ON", "function" : "MENU", "groupid" : 0},
+
+    "@1Q-" :  {"status" : "TUNER PRESET IS Not available", "function" : "TUNER PRESET", "groupid" : 0},
+    
+    "@1RA*" :  {"status" : "F-DIRECT IS OFF", "function" : "F-DIRECT", "groupid" : 0},
+
+    "@1RB*" :  {"status" : "ON", "function" : "TUNER MODE", "groupid" : 0},
+    "@1R-*" :  {"status" : "Not available", "function" : "TUNER MODE", "groupid" : 0},
+    "@1R*C" :  {"status" : "AUTO STEREO", "function" : "TUNER MODE", "groupid" : 0},
+    "@1R*D" :  {"status" : "MONO", "function" : "POWER", "TUNER MODE" : 0},
+    "@1R*-" :  {"status" : "Not available", "function" : "TUNER MODE", "groupid" : 0},
+
+    "@1U0" :  {"status" : "AUTO", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1U6" :  {"status" : "DOLBY-DIGITAL", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1U7" :  {"status" : "DD+PLIIx-MOVIE", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1U8" :  {"status" : "DD+PLIIx-MUSIC", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1U9" :  {"status" : "AAC+PLIIx-MOVIE", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UA" :  {"status" : "AAC+PLIIx-MUSIC", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UB" :  {"status" : "DOLBY PLIIx-MOVIE", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UC" :  {"status" : "DOLBY PLIIx-MUSIC", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UD" :  {"status" : "DOLBY PLIIx-GAME", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UE" :  {"status" : "DOLBY PLII-MOVIE", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UF" :  {"status" : "DOLBY PLII-MUSIC", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UG" :  {"status" : "DOLBY PLII-GAME", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UH" :  {"status" : "DOLBY PROLOGIC", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UI" :  {"status" : "EX/ES", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UJ" :  {"status" : "VIRTUAL 6.1", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UK" :  {"status" : "DOLBY DIGITAL EX", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UL" :  {"status" : "DTS ES", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UM" :  {"status" : "DTS CINEMA", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UO" :  {"status" : "DTS NEO6 CINEMA", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UP" :  {"status" : "DTS NEO6 MUSIC", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UQ" :  {"status" : "MULTICHANNEL-STEREO", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UR" :  {"status" : "CSII CINEMA", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1US" :  {"status" : "CSII MUSIC", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UT" :  {"status" : "CSII MONO", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1Uc" :  {"status" : "VIRTUAL", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1Ud" :  {"status" : "STEREO", "function" : "SURROUND MODE", "groupid" : 0},
+    "@1UX" :  {"status" : "S-DIRECT", "function" : "SURROUND MODE", "groupid" : 0},
+
+    "@1VBA" : {"status" : "OFF", "function" : "TEST", "groupid" : 0},
+    "@1VBB" : {"status" : "ON",  "function" : "TEST", "groupid" : 0},
+    
+    "@1WA" :  {"status" : "OFF", "function" : "NIGHT MODE", "groupid" : 0},
+    "@1WB" :  {"status" : "ON", "function" : "NIGHT MODE", "groupid" : 0},
+
+    "@1XA" :  {"status" : "OFF", "function" : "HT-EQ", "groupid" : 0},
+    "@1XB" :  {"status" : "ON", "function" : "HTEQ", "groupid" : 0},
+
+    "@1uA" :  {"status" : "DOLBY DIGITAL(AC-3)", "function" : "INPUT SIGNAL FORMAT", "groupid" : 0},
+    "@1uB" :  {"status" : "DOLBY DIGITAL SURROUND", "function" : "INPUT SIGNAL FORMAT", "groupid" : 0},
+    "@1uC" :  {"status" : "DOLBY DIGITAL SURROUND EX", "function" : "INPUT SIGNAL FORMAT", "groupid" : 0},
+    "@1uD" :  {"status" : "DTS", "function" : "INPUT SIGNAL FORMAT", "groupid" : 0},
+    "@1uE" :  {"status" : "DTS ES DISCREATE", "function" : "INPUT SIGNAL FORMAT", "groupid" : 0},
+    "@1uF" :  {"status" : "DTS ES MATRIX", "function" : "INPUT SIGNAL FORMAT", "groupid" : 0},
+    "@1uG" :  {"status" : "AAC", "function" : "INPUT SIGNAL FORMAT", "groupid" : 0},
+    "@1uJ" :  {"status" : "PCM", "function" : "INPUT SIGNAL FORMAT", "groupid" : 0},
+    "@1uK" :  {"status" : "HDCD", "function" : "INPUT SIGNAL FORMAT", "groupid" : 0},
+    "@1uM" :  {"status" : "OTHER", "function" : "INPUT SIGNAL FORMAT", "groupid" : 0},
+    "@1uN" :  {"status" : "NO SIGNAL DETECTED", "function" : "INPUT SIGNAL FORMAT", "groupid" : 0},
+
+    "@1vC" :  {"status" : "unsure what this is", "function" : "SAMPLING FREQUENCY", "groupid" : 0}
+},
+
+"variable statuses" : {
+    "@1EA": {"status" : "VOLUME LEVEL", "regex" : "^.4([+-0-9]{2-3})$", "min" : -90, "max" : 99},
+    "@1EA": {"status" : "VOLUME LEVEL", "regex" : "^.4([+-0-9]{2-3})$"}
+
+}
+}

@@ -6,7 +6,7 @@ var settings = require("./settings");
 var text_record = {
   "url" : settings.api.url,
   "version" : settings.api.version,
-  json : true,
+  json : false,
   text : true,
   author : "Andrew Cuddon"
 };
@@ -16,7 +16,7 @@ var options = {
     txtRecord : text_record
 };
 
-var port = 8080;
+var port = settings.httpserver.port;
 var servicetype = mdns.tcp('http');     // http service over tcp (_http._tcp)
 
 function createAdvertisement(servicetype, port, options) {
@@ -38,7 +38,7 @@ function handleError(error) {
   switch (error.errorCode) {
     case mdns.kDNSServiceErr_Unknown:
       console.warn(error);
-      setTimeout(createAdvertisement(servicetype, port, options), 5000);
+      setTimeout(createAdvertisement(servicetype, port, options), 10000);
       break;
     default:
       throw error;

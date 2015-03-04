@@ -4,11 +4,14 @@
 ### Starting the server
 
 1. Start the server
-  `node server
+  ```
+  node server
+  ```
 
-2.Use HTTP client to access the API
+2. Use HTTP client to access the API
 
 ### API
+```
     /api/requesttpe/requeststring               --> returns a string
     (Not yet implemented) /api/requesttpe/requeststring?return=json   --> returns json (optional)
   
@@ -31,7 +34,7 @@
     /api/logs/get
     /api/log/get
     /api/history/get
-
+```
 ###License
 The MIT License (MIT)
 

@@ -1,6 +1,5 @@
 {
     "_comment"  : "Mappings between std input names and actual devices (e.g. DSS -> TBOX)",
-    "_version"  : "0.0",
 
     "commandmappings" : {
         "SELECT_INPUT_TBOX" : "SELECT_INPUT_DSS",

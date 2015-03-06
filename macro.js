@@ -1,12 +1,13 @@
 /*
   macro.js
   
-  Load and run a macro
+  Run a macro
   Returns a promise to the macros result (ACK or NAK)
   Result will be NAK if any one of the commands returns NAK
+  Macros command occur sequentially
   
   TTDs
-    Hand setting volume to a specific valid within a macro (see how server.js uses volume.js)
+    Setting the volume to a specific valid within a macro (see how server.js uses volume.js)
   
 */
 

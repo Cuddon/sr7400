@@ -1,6 +1,6 @@
 {
   "_app" : "Marantz SR7400 Web Service",
-  "_apiversion"  : "0.0",
+  "_apiversion"  : "1.0.0",
   
   "_comment"  : "Marantz SR7400 Surround Sound Amplifier serial interface web service via a Global Cache GC-100",
   "api" : [

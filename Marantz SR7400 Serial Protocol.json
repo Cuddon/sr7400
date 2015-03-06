@@ -1,7 +1,7 @@
 {
     "_protocol" : "Marantz SR7400 Surround Sound Amplifier serial interface",
     "_source"   : "doc",
-    "_version"  : "0.0.0",
+    "_version"  : "1.0.0",
 
     "_comment"  : "lists of objects",
     

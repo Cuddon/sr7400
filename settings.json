@@ -1,5 +1,5 @@
 {
-  "_comment"      : "Settings fro Marantz SR7400 web service",
+  "_comment"      : "Settings for Marantz SR7400 web service",
   "_contributors" : ["Andrew Cuddon"],
   "_website"      : "http://www.cuddon.net/sr7400",
 
@@ -21,8 +21,8 @@
     "port_infrared_1" : 4998
   },
   
-  "amp" : {
-    "_comment" : "Settings for th SR7400 amplifier",
+  "sr7400" : {
+    "_comment" : "Settings for the SR7400 amplifier",
     "normalvolume" : -32
   }
 }

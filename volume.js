@@ -4,7 +4,7 @@
   Uses promises to run the commands sequentially in series
   
   TTDs:
-    More accurate volume setting using single DB chnages as well as 5db changes
+    More accurate volume setting using single DB changes as well as 5db changes
 */
 
 // Std library modules

@@ -1,12 +1,9 @@
 #Change Log
 
-##v1.0.0
-Initial release
-6 March 2015
-
 ##v1.1.0
-Blah
-Date
+*Blah*
+Release date: TBA
+
 ###Breaking API changes
   None
 ###API Enhancements
@@ -15,3 +12,8 @@ Date
 ###Bug Fixes
   1. Blah
   
+
+##v1.0.0
+*Initial release*
+Release date: 6 March 2015
+

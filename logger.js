@@ -49,6 +49,8 @@ function getlogs(level) {
   return logs;
 }
 
+// Expose to other modules
+exports.logger = logger;
 
 // Tests
 logger.info('Hello distributed logs. This is FYI only');
@@ -64,7 +66,7 @@ var options = {
     start: 0
   };
 
-  winston.query(options, function (err, results) {
+  logger.query(options, function (err, results) {
     if (err) {
       throw err;
     }

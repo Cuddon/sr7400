@@ -7,7 +7,7 @@ var winston = require('winston');
 //require('winston-mongo').Mongo;
 
 // Settings
-var requestlog = ""./request.log";
+var requestlog = "./request.log";
 var errorlog = "./error.log";
 var exceptionsfile = "./exceptions.log";
 
@@ -25,7 +25,7 @@ var logger = new (winston.Logger)({
       json: true,
       maxsize: 1000000,
       maxFiles: 1
-    },
+    }),
     
     new winston.transports.File({
       name: "error-log-file",
@@ -53,7 +53,7 @@ function getlogs(level) {
 // Tests
 logger.info('Hello distributed logs. This is FYI only');
 logger.warn('This is a warning');
-logger.error('This is an error with some data', , {some: 'data''});
+logger.error('This is an error with some data', {message: 'Some data'});
 
 
 // Find items logged between today and yesterday.
@@ -61,9 +61,7 @@ var options = {
     from: new Date - 24 * 60 * 60 * 1000,
     until: new Date,
     limit: 10,
-    start: 0,
-    order: 'desc',
-    fields: ['message']
+    start: 0
   };
 
   winston.query(options, function (err, results) {

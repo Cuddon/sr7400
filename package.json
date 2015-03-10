@@ -14,6 +14,6 @@
   "dependencies": {
     "mdns": "2.2.2",
     "q" : "1.2.0",
-    'winston' : '0.9.0'
+    "winston" : "0.9.0"
   }
 }

@@ -1,0 +1,6 @@
+{"level":"info","message":"Hello distributed logs. This is FYI only","timestamp":"2015-03-11T09:47:50.797Z"}
+{"level":"warn","message":"This is a warning","timestamp":"2015-03-11T09:47:50.798Z"}
+{"data":"Some data","level":"error","message":"This is an error with some data","timestamp":"2015-03-11T09:47:50.799Z"}
+{"level":"info","message":"Hello distributed logs. This is FYI only","timestamp":"2015-03-11T09:54:07.350Z"}
+{"level":"warn","message":"This is a warning","timestamp":"2015-03-11T09:54:07.351Z"}
+{"data":"Some data","level":"error","message":"This is an error with some data","timestamp":"2015-03-11T09:54:07.352Z"}

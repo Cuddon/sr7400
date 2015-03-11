@@ -1,4 +1,5 @@
 {
+  "name"          : "SR7400",
   "_comment"      : "Settings for Marantz SR7400 web service",
   "_contributors" : ["Andrew Cuddon"],
   "_website"      : "http://www.cuddon.net/sr7400",
@@ -6,6 +7,20 @@
   "httpserver" : {
     "ip"   : "192.168.1.1",
     "port" : 8080
+  },
+  
+  "logging" : {
+    "logtofile" : true,
+    "requestlog" : "./log/request.log",
+    "errorlog" : "./log/error.log",
+    "maxfilesize" : 10000000,
+    "handleExceptions" : true,
+    "logtomongo" : false,
+    "mongoip" : "192.168.1.1",
+    "mongoport" : 27017,
+    "maxfilesize" : 100000000,
+    "mongousername" : "username",
+    "mongopassword" : "password"
   },
   
   "api" : {

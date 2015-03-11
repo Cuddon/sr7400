@@ -1,62 +1,70 @@
 /*
   Logging
+
+  Optionally log to a file and/or MongoDB
 */
 
 // Winston logging library
 var winston = require('winston');
-//require('winston-mongo').Mongo;
 
 // Settings
-var requestlog = "./request.log";
-var errorlog = "./error.log";
-var exceptionsfile = "./exceptions.log";
+var settings = require('./settings');
 
-// Set up logger and save locations
+// Create a new logger instance
 var logger = new (winston.Logger)({
   transports: [
     new winston.transports.Console({
       colorize: true
-    }),
-    
-    new winston.transports.File({
-      name: "request-log-file",
-      filename: requestlog,
-      timestamp: true,
-      json: true,
-      maxsize: 1000000,
-      maxFiles: 1
-    }),
-    
-    new winston.transports.File({
-      name: "error-log-file",
-      filename: errorlog,
-      level: 'error',
-      timestamp: true,
-      json: true,
-      maxsize: 1000000,
-      maxFiles: 1,
-      handleExceptions: true
     })
-    //new winston.transports.MongoDB({ db: 'db', level: 'info'})
   ]
 });
 
-function getlogs(level) {
-  var levels = ['error', 'warn', 'info'];
+if (settings.logging.logtofile) {
+  logger.add(winston.transports.File, {
+    name: "request-log",
+    filename: settings.logging.requestlog,
+    timestamp: true,
+    json: true,
+    maxsize: 1000000,
+    maxFiles: 1
+  });
+  logger.add(winston.transports.File, {
+    name: "error-log",
+    filename: settings.logging.errorlog,
+    level: 'error',
+    timestamp: true,
+    json: true,
+    maxsize: settings.logging.maxfilesize,
+    maxFiles: 1,
+    handleExceptions: settings.logging.handleExceptions
+  });
+};
 
-  var logs = [];
-  
-  return logs;
+if (settings.logging.logtomongo) {
+  require('winston-mongo').Mongo;
+  // Create MongoDB instance and cap size at 100mb
+  new winston.transports.MongoDB({
+    host: settings.logging.mongoip,
+    username : settings.logging.mongousername,
+    password : settings.logging.mongopassword,
+    db: settings.name,
+    collection: 'log',
+    level: 'info',
+    capped : true,
+    cappedsize : settings.logging.maxdbsize
+  });
 }
 
-// Expose to other modules
-exports.logger = logger;
+// Expose to other modules. Use like this:
+//  var logger = require('./logger');
+//  logger.info("Hello world, Winston logger")
+module.exports.logger;
+
 
 // Tests
 logger.info('Hello distributed logs. This is FYI only');
 logger.warn('This is a warning');
-logger.error('This is an error with some data', {message: 'Some data'});
-
+logger.error('This is an error with some data', {data: 'Some data'});
 
 // Find items logged between today and yesterday.
 var options = {
@@ -66,9 +74,14 @@ var options = {
     start: 0
   };
 
+// Wait a bit for the above to be saved and then query the logs
+console.log("\nQuery the logger...");
+setTimeout(function() {
   logger.query(options, function (err, results) {
     if (err) {
       throw err;
     }
     console.log(results);
   });
+}, 1000)
+

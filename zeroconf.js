@@ -11,7 +11,7 @@ var settings = require("./settings");
 
 // Current date/time
 var d = new Date();
-var now = d.toDateString();
+var now = d.toDateString() + ' ' + d.toTimeString();;
 
 var text_record = {
   "url" : settings.api.url,

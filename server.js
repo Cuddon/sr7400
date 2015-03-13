@@ -133,7 +133,7 @@ server.on('request', function (request, response) {
   var leadin = "";
   var args = url_parts.pathname.split("/");
   //console.log("Arguments: " + args + " (" + args.length + ")" );
-  
+  /*
   if (arg[1] == "/favicon.ico") {
     try {
       var img = fs.readFileSync("./www/favicon.ico");
@@ -145,6 +145,7 @@ server.on('request', function (request, response) {
     return;
   }
 
+*/
   // Check for correct number of api arguments
   if (args.length == 4) {
     leadin = args[1].toLowerCase();

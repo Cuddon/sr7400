@@ -14,7 +14,7 @@
     "requestlog" : "./log/request.log",
     "errorlog" : "./log/error.log",
     "maxfilesize" : 10000000,
-    "handleExceptions" : true,
+    "handleExceptions" : false,
     "logtomongo" : false,
     "mongoip" : "192.168.1.1",
     "mongoport" : 27017,

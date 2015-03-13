@@ -39,6 +39,7 @@ var zeroconf = require('./zeroconf');   // SR7400 driver
 var macro = require('./macro');         // Macro module
 var volume = require('./volume');       // Volume module dor setting volume to a specific value
 var help = require('./help');           // API help
+var logger = require('./logger');
 
 // Configuration
 var mappings = require('./mappings');       // e.g. DSS -> TBOX
@@ -55,9 +56,9 @@ var server = http.createServer();
 server.listen(settings.httpserver.port, settings.httpserver.ip, 511, function() {
   // Now that the server has started listening for HTTP requests start zero conf advertising
   zeroconf.advertise();
-  console.log('HTTP server running at http://' + settings.httpserver.ip + ":" + settings.httpserver.port);
+  logger.info('HTTP server running at http://' + settings.httpserver.ip + ":" + settings.httpserver.port);
 });
-console.log("\n\n---------------------- Marantz SR7400 Web Service---------------------- \n");
+logger.info("---------------------- Marantz SR7400 Web Service---------------------- ");
 
 // Listen for HTTP requests
 server.on('request', function (request, response) {
@@ -161,7 +162,7 @@ server.on('request', function (request, response) {
           response.write("ACK");
           response.end();
           // Save the result to the log
-          console.log('\n**** SR7400 Command: ' + requeststring + ', SR7400 Response: ' + result + ' ****\n');
+          //logger.info('**** SR7400 Command successful ****', {'request' : requeststring, 'result' : result});
         })
         .fail(function(err){
           // Error processing the volume command
@@ -169,7 +170,7 @@ server.on('request', function (request, response) {
           response.write(err);
           response.end();
           // Save the result to the log
-          console.log('\n**** SR7400 Command: ' + requeststring + ', SR7400 Response: ' + err + ' ****\n');
+          console.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} ); 
         })
         .done();
     } else {
@@ -200,12 +201,12 @@ server.on('request', function (request, response) {
           response.end();
           
           // Save the result to the log
-          console.log('\n**** SR7400 Command: ' + requeststring + ', SR7400 Response: ' + result + ' ****\n');
+          //logger.info('**** SR7400 Command successful ****', {'request' : requeststring, 'result' : result});
         })
         .fail(function(err){
           errorresponse(500, err, response);
           // Save the result to the log
-          console.log('\n**** SR7400 Command: ' + requeststring + ', SR7400 Response: ' + err + ' ****\n');
+          console.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} ); 
         })
         .done();
     }
@@ -222,7 +223,8 @@ server.on('request', function (request, response) {
               response.write("ACK");
               response.end();
               // Save the result to the log
-              console.log('\n**** SR7400 Command: ' + requeststring + ', SR7400 Response: ' + result + ' ****\n');
+              //logger.info('\n**** SR7400 Command successful ****\n', {'request' : requeststring, 'result' : result});
+ 
             })
             .fail(function(err){
               // One or more macros commands had an error
@@ -230,7 +232,7 @@ server.on('request', function (request, response) {
               response.write(err);
               response.end();
               // Save the result to the log
-              console.log('\n**** SR7400 Command: ' + requeststring + ', SR7400 Response: ' + err + ' ****\n');
+              console.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} ); 
             })
             .done();
       } else {
@@ -238,7 +240,7 @@ server.on('request', function (request, response) {
           err = "Error - macro not found in the SR7400 protocol: " + requeststring;
           errorresponse(500, err, response);
           // Save the result to the log
-          console.log('\n**** SR7400 Command: ' + requeststring + ', SR7400 Response: ' + err + ' ****\n');
+          console.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} ); 
           return;
       }
   } else if (requesttype == 'config') {
@@ -263,6 +265,7 @@ server.on('request', function (request, response) {
         break;
       default:
         configitem = {"error" : "Unknown configuration item requested", "request" : request.url};
+        console.warn("Unknown configuration item requested" , {'request' : request.url} ); 
     }
     response.writeHead(200, {'Content-Type': 'application/json'});
     response.write(JSON.stringify(configitem));

@@ -58,9 +58,9 @@ if (settings.logging.logtomongo) {
 // Expose to other modules. Use like this:
 //  var logger = require('./logger');
 //  logger.info("Hello world, Winston logger")
-module.exports.logger;
+module.exports = logger;
 
-
+/*
 // Tests
 logger.info('Hello distributed logs. This is FYI only');
 logger.warn('This is a warning');
@@ -85,3 +85,4 @@ setTimeout(function() {
   });
 }, 1000)
 
+*/

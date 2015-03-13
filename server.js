@@ -29,9 +29,12 @@
 
 "use strict";
 
-// Import libraries
+// Import core library modules
 var http = require('http');
 var url = require("url");
+var fs = require("fs");
+
+// Import dependencies
 
 // Import App modules
 var sr7400 = require('./sr7400');       // SR7400 driver
@@ -54,7 +57,7 @@ var settings = require('./settings.json');
 // Create and start the HTTP server for receiving command requests
 var server = http.createServer();
 server.listen(settings.httpserver.port, settings.httpserver.ip, 511, function() {
-  // Now that the server has started listening for HTTP requests start zero conf advertising
+  // Now that the server has started listening for HTTP requests, start Zeroconf/Bonjour/Avahi advertising
   zeroconf.advertise();
   logger.info('HTTP server running at http://' + settings.httpserver.ip + ":" + settings.httpserver.port);
 });
@@ -96,7 +99,7 @@ server.on('request', function (request, response) {
   // Confirm a GET request, otherwise return an error
   if (request.method != 'GET' ) {
     err = "Invalid http method: " + request.method;
-    errorresponse(500, err,response);
+    errorresponse(500, err, response);
     return;
   }
   
@@ -131,23 +134,34 @@ server.on('request', function (request, response) {
   var args = url_parts.pathname.split("/");
   //console.log("Arguments: " + args + " (" + args.length + ")" );
   
+  if (arg[1] == "/favicon.ico") {
+    try {
+      var img = fs.readFileSync("./www/favicon.ico");
+      response.writeHead(200, {"Content-Type": "image/x-icon"});
+      response.end(img, 'binary');
+    } catch (err) {
+      errorresponse(500, err, response);
+    }
+    return;
+  }
+
   // Check for correct number of api arguments
   if (args.length == 4) {
     leadin = args[1].toLowerCase();
     requesttype = args[2].toLowerCase();
     requeststring = args[3].toLowerCase();
   } else {
-      err = "Invalid request. Incorrect number of arguments: " + request.url;
-      errorresponse(500, err,response);
-      return;
+    err = "Invalid request. Incorrect number of arguments: " + request.url;
+    errorresponse(500, err, response);
+    return;
   }
 
   // Check the api leadin
   if (leadin != settings.api.leadin) {
-      // invalid leadin to the the api (e.g. must be /api)
-      err = "Invalid request (api leadin): " + request.url;
-      errorresponse(500, err,response);
-      return;
+    // invalid leadin to the the api (e.g. must be /api)
+    err = "Invalid request (api leadin): " + request.url;
+    errorresponse(500, err, response);
+    return;
   }
 
   if (requesttype == 'command') {
@@ -170,7 +184,7 @@ server.on('request', function (request, response) {
           response.write(err);
           response.end();
           // Save the result to the log
-          console.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} ); 
+          logger.warn('**** SR7400 Command unsuccessful ****', {'request' : requeststring, 'result' : err}); 
         })
         .done();
     } else {
@@ -206,7 +220,7 @@ server.on('request', function (request, response) {
         .fail(function(err){
           errorresponse(500, err, response);
           // Save the result to the log
-          console.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} ); 
+          logger.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} ); 
         })
         .done();
     }
@@ -232,7 +246,7 @@ server.on('request', function (request, response) {
               response.write(err);
               response.end();
               // Save the result to the log
-              console.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} ); 
+              logger.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} ); 
             })
             .done();
       } else {
@@ -240,7 +254,7 @@ server.on('request', function (request, response) {
           err = "Error - macro not found in the SR7400 protocol: " + requeststring;
           errorresponse(500, err, response);
           // Save the result to the log
-          console.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} ); 
+          logger.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} ); 
           return;
       }
   } else if (requesttype == 'config') {
@@ -265,7 +279,7 @@ server.on('request', function (request, response) {
         break;
       default:
         configitem = {"error" : "Unknown configuration item requested", "request" : request.url};
-        console.warn("Unknown configuration item requested" , {'request' : request.url} ); 
+        logger.warn("Unknown configuration item requested" , {'request' : request.url} ); 
     }
     response.writeHead(200, {'Content-Type': 'application/json'});
     response.write(JSON.stringify(configitem));
@@ -279,6 +293,7 @@ server.on('close', function (request, response) {
 
 function errorresponse(code, err, resp) {
   // Return an HTTP error response
+  logger.warn(err , {'request' : resp.url} );
   resp.writeHead(code, {"Content-Type": "text/plain"});
   resp.end(err + "\n");
 }

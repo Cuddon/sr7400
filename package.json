@@ -12,8 +12,8 @@
   },
   "author": "Andrew Cuddon <andrew.cuddon@gmail.com>",
   "dependencies": {
-    "mdns": "2.2.2",
-    "q" : "1.2.0",
-    "winston" : "0.9.0"
+    "mdns"    : "2.2.x",
+    "q"       : "1.2.x",
+    "winston" : "0.9.x"
   }
 }

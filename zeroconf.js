@@ -1,14 +1,25 @@
 // Service discovery
 
+// Import core library modules
+// None
+
+// Import dependencies
 var mdns = require('mdns');
+
+// Import App modules
 var settings = require("./settings");
+
+// Current date/time
+var d = new Date();
+var now = d.toDateString();
 
 var text_record = {
   "url" : settings.api.url,
   "version" : settings.api.version,
   json : false,
   text : true,
-  author : "Andrew Cuddon"
+  author : "Andrew Cuddon",
+  started : now
 };
 
 var options = {
@@ -32,7 +43,7 @@ function createAdvertisement(servicetype, port, options) {
 function handleError(error) {
     /*
         Automatically restart the advertisement when an unknown error occurs.
-        This happens for example when the systems mdns daemon is currently down.
+        This happens for example when the system's MDNS daemon is currently down.
         All other errors, like bad parameters, ctrl-c. are treated as fatal.
     */
   switch (error.errorCode) {

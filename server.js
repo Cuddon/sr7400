@@ -177,7 +177,7 @@ server.on('request', function (request, response) {
           response.write("ACK");
           response.end();
           // Save the result to the log
-          //logger.info('**** SR7400 Command successful ****', {'request' : requeststring, 'result' : result});
+          logger.info('**** SR7400 Command successful ****', {'request' : requeststring, 'result' : result});
         })
         .fail(function(err){
           // Error processing the volume command
@@ -216,7 +216,7 @@ server.on('request', function (request, response) {
           response.end();
           
           // Save the result to the log
-          //logger.info('**** SR7400 Command successful ****', {'request' : requeststring, 'result' : result});
+          logger.info('**** SR7400 Command successful ****', {'request' : requeststring, 'result' : result});
         })
         .fail(function(err){
           errorresponse(500, err, response);
@@ -238,7 +238,7 @@ server.on('request', function (request, response) {
               response.write("ACK");
               response.end();
               // Save the result to the log
-              //logger.info('\n**** SR7400 Command successful ****\n', {'request' : requeststring, 'result' : result});
+              logger.info('\n**** SR7400 Command successful ****\n', {'request' : requeststring, 'result' : result});
  
             })
             .fail(function(err){

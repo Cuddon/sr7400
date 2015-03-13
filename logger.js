@@ -22,6 +22,7 @@ var logger = new (winston.Logger)({
 if (settings.logging.logtofile) {
   logger.add(winston.transports.File, {
     name: "request-log",
+    level: settings.logging.requestloglevel,
     filename: settings.logging.requestlog,
     timestamp: true,
     json: true,

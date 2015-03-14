@@ -64,7 +64,14 @@ server.listen(settings.httpserver.port, settings.httpserver.ip, 511, function() 
 logger.info("---------------------- Marantz SR7400 Web Service---------------------- ");
 
 // Listen for HTTP requests
-server.on('request', function (request, response) {
+server.on('request', requestHandler);
+
+server.on('close', function (request, response) {
+  // Do nothing at this stage
+});
+
+
+function requestHandler(request, response) {
   /*
     request = {
       socket: { … },
@@ -133,20 +140,14 @@ server.on('request', function (request, response) {
   var leadin = "";
   var args = url_parts.pathname.split("/");
   //console.log("Arguments: " + args + " (" + args.length + ")" );
-  /*
-  if (arg[1] == "/favicon.ico") {
-    try {
-      var img = fs.readFileSync("./www/favicon.ico");
-      response.writeHead(200, {"Content-Type": "image/x-icon"});
-      response.end(img, 'binary');
-    } catch (err) {
-      errorresponse(500, err, response);
-    }
+  
+  if (args[1] == "favicon.ico") {
+    // favicon request
+    faviconHandler();
     return;
   }
 
-*/
-  // Check for correct number of api arguments
+  // Check for correct number of API arguments
   if (args.length == 4) {
     leadin = args[1].toLowerCase();
     requesttype = args[2].toLowerCase();
@@ -157,7 +158,7 @@ server.on('request', function (request, response) {
     return;
   }
 
-  // Check the api leadin
+  // Check the API leadin
   if (leadin != settings.api.leadin) {
     // invalid leadin to the the api (e.g. must be /api)
     err = "Invalid request (api leadin): " + request.url;
@@ -286,11 +287,7 @@ server.on('request', function (request, response) {
     response.write(JSON.stringify(configitem));
     response.end();
   }
-});
-
-server.on('close', function (request, response) {
-  // Do nothing at this stage
-});
+}
 
 function errorresponse(code, err, resp) {
   // Return an HTTP error response
@@ -299,3 +296,13 @@ function errorresponse(code, err, resp) {
   resp.end(err + "\n");
 }
 
+function faviconHandler() {
+  // Serve up the favicon
+  try {
+    var img = fs.readFileSync("./www/favicon.ico");
+    response.writeHead(200, {"Content-Type": "image/x-icon"});
+    response.end(img, 'binary');
+  } catch (err) {
+    errorresponse(500, err, response);
+  }
+}

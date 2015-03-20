@@ -120,7 +120,7 @@ exports.setTo = setTo;
 var requeststring = 'set_volume_to_-20';
 if (requeststring.substr(0,14) == 'set_volume_to_') {
   var volume = parseInt(requeststring.substring(14), 10);
-  setVolumeTo(volume)       // Promise
+  setTo(volume)       // Promise
   .then(function(result){
     console.log(result);
   })

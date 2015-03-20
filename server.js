@@ -40,7 +40,8 @@ var fs = require("fs");
 var sr7400 = require('./sr7400');       // SR7400 driver
 var zeroconf = require('./zeroconf');   // SR7400 driver
 var macro = require('./macro');         // Macro module
-var volume = require('./volume');       // Volume module dor setting volume to a specific value
+var volume = require('./volume');       // Volume module for setting volume to a specific value
+var mute = require('./mute');           // Mute module for toggling audio mute
 var help = require('./help');           // API help
 var logger = require('./logger');
 
@@ -169,9 +170,29 @@ function requestHandler(request, response) {
   if (requesttype == 'command') {
     // Send the command to the SR7400 and wait for a response
     if (requeststring.substr(0,14) == 'set_volume_to_') {
-      // Set to specific volume command (not supported by the reciver so use teh workaround)
+      // Set to specific volume command (not supported by the receiver so use the workaround)
       var requestedvolume = parseInt(requeststring.substring(14), 10);
       volume.setTo(requestedvolume)       // Promise
+        .then(function(result){
+          // Volume command completed OK
+          response.writeHead(200, {'Content-Type': 'text/plain'});
+          response.write("ACK");
+          response.end();
+          // Save the result to the log
+          logger.info('**** SR7400 Command successful ****', {'request' : requeststring, 'result' : result});
+        })
+        .fail(function(err){
+          // Error processing the volume command
+          response.writeHead(200, {'Content-Type': 'text/plain'});
+          response.write(err);
+          response.end();
+          // Save the result to the log
+          logger.warn('**** SR7400 Command unsuccessful ****', {'request' : requeststring, 'result' : err}); 
+        })
+        .done();
+    } else if (requeststring.substr(0,14) == 'toggle_mute') {
+      // Toggle Audio Mute
+      mute.toggle()       // Promise
         .then(function(result){
           // Volume command completed OK
           response.writeHead(200, {'Content-Type': 'text/plain'});

@@ -10,7 +10,7 @@
 // Core library modules
 
 // Dependent modules
-var Q = require('q');     // Promises
+//var Q = require('q');     // Promises
 
 // App modules
 var sr7400 = require('./sr7400');
@@ -37,13 +37,14 @@ function toggle() {
     if (currentmutestatus === "NAK") {
       // Not Acknowledged response from SR7400
       throw new Error("Error response from SR7400: NAK");
-    } else if (currentvolume === "ON") {
+    } else if (currentmutestatus === "ON") {
       command = "TURN_MUTE_OFF";
-    } else if (currentvolume === "OFF") {
+    } else if (currentmutestatus === "OFF") {
       command = "TURN_MUTE_ON";
     } else {
-      // some other text
-      throw new Error("Error parsing response from SR7400. Valid mute status expected: " + currentmutestatus);
+        // some other text
+        throw new Error("Error parsing response from SR7400. Valid mute status expected: " + currentmutestatus);
+    }
     return command;
   })
 
@@ -67,16 +68,16 @@ exports.toggle = toggle;
 
 
 // Test
-toggle()       // Promise
-  .then(function(result){
-    console.log(result);
-  })
-  .fail(function(err){
-    console.error(err);
-  })
-  .finally(function() {
-    console.info('...All done!');
-  })
-  .done();
-}
+toggle()
+.then(function(result){
+  console.log(result);
+})
+.fail(function(err){
+  console.error(err);
+})
+.finally(function() {
+      console.info('...All done!');
+})
+.done();
+
 

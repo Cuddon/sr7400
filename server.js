@@ -1,6 +1,6 @@
 /*
   server.js
-  
+
   Marantz SR7400 web service
 
   The MIT License (MIT)
@@ -37,19 +37,21 @@ var fs = require("fs");
 // Import dependencies
 
 // Import App modules
-var sr7400 = require('./sr7400');       // SR7400 driver
-var zeroconf = require('./zeroconf');   // SR7400 driver
-var macro = require('./macro');         // Macro module
-var volume = require('./volume');       // Volume module for setting volume to a specific value
-var mute = require('./mute');           // Mute module for toggling audio mute
-var help = require('./help');           // API help
+var zeroconf = require('./zeroconf');   // Bonjour, Avahi, Zeroconf advertising
 var logger = require('./logger');
+var help = require('./help');           // API help
+
+// Device specific modules
+var sr7400 = require('./device/sr7400');       // SR7400 driver
+var macro = require('./device/macro');         // Macro module
+var volume = require('./device/volume');       // Volume module for setting volume to a specific value
+var mute = require('./device/mute');           // Mute module for toggling audio mute
+var mappings = require('./device/mappings');       // e.g. DSS -> TBOX
+var macros = require('./device/macros.json');
 
 // Configuration
-var mappings = require('./mappings');       // e.g. DSS -> TBOX
 var valid_commandmappings = Object.keys(mappings.commandmappings);
 var valid_statusmappings = Object.keys(mappings.statusmappings);
-var macros = require('./macros.json');
 var valid_macros = Object.keys(macros.macros);
 
 // Load settings
@@ -103,14 +105,14 @@ function requestHandler(request, response) {
   */
 
   var err = false;
-  
+
   // Confirm a GET request, otherwise return an error
   if (request.method != 'GET' ) {
     err = "Invalid http method: " + request.method;
     errorresponse(500, err, response);
     return;
   }
-  
+
   // Find parts of the URL path of the request
   var url_parts = url.parse(request.url, true);
   /*
@@ -129,7 +131,7 @@ function requestHandler(request, response) {
       hash: '#hash',
       slashes: true
     }
-    
+
     pathname = /api/requesttype/requeststring
       requesttype = 'command|macro|config'
       e.g. /api/command/get_volume_level
@@ -141,7 +143,7 @@ function requestHandler(request, response) {
   var leadin = "";
   var args = url_parts.pathname.split("/");
   //console.log("Arguments: " + args + " (" + args.length + ")" );
-  
+
   if (args[1] == "favicon.ico") {
     // favicon request
     faviconHandler();
@@ -187,7 +189,7 @@ function requestHandler(request, response) {
           response.write(err);
           response.end();
           // Save the result to the log
-          logger.warn('**** SR7400 Command unsuccessful ****', {'request' : requeststring, 'result' : err}); 
+          logger.warn('**** SR7400 Command unsuccessful ****', {'request' : requeststring, 'result' : err});
         })
         .done();
     } else if (requeststring.substr(0,14) == 'toggle_mute') {
@@ -207,12 +209,12 @@ function requestHandler(request, response) {
           response.write(err);
           response.end();
           // Save the result to the log
-          logger.warn('**** SR7400 Command unsuccessful ****', {'request' : requeststring, 'result' : err}); 
+          logger.warn('**** SR7400 Command unsuccessful ****', {'request' : requeststring, 'result' : err});
         })
         .done();
     } else {
       // Normal command that is in the protocol
-      
+
       requeststring = requeststring.toUpperCase();  // interim until we make all commands lower case
 
       // Apply any command mappings e.g. SELECT_INPUT_TBOX -> SELECT_INPUT_DSS
@@ -227,23 +229,23 @@ function requestHandler(request, response) {
           // Valid response from the SR7400
           // Ensure it is a sting (esp for volume levels etc)
           result = result.toString();
-          
+
           // Apply any mappings to the response // e.g. DSS -> TBOX
           if (valid_statusmappings.indexOf(result) >= 0) {
               result = mappings.statusmappings[result];
           }
-          
+
           response.writeHead(200, {'Content-Type': 'text/plain'});
           response.write(result);
           response.end();
-          
+
           // Save the result to the log
           logger.info('**** SR7400 Command successful ****', {'request' : requeststring, 'result' : result});
         })
         .fail(function(err){
           errorresponse(500, err, response);
           // Save the result to the log
-          logger.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} ); 
+          logger.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} );
         })
         .done();
     }
@@ -261,7 +263,7 @@ function requestHandler(request, response) {
               response.end();
               // Save the result to the log
               logger.info('\n**** SR7400 Command successful ****\n', {'request' : requeststring, 'result' : result});
- 
+
             })
             .fail(function(err){
               // One or more macros commands had an error
@@ -269,7 +271,7 @@ function requestHandler(request, response) {
               response.write(err);
               response.end();
               // Save the result to the log
-              logger.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} ); 
+              logger.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} );
             })
             .done();
       } else {
@@ -277,13 +279,13 @@ function requestHandler(request, response) {
           err = "Error - macro not found in the SR7400 protocol: " + requeststring;
           errorresponse(500, err, response);
           // Save the result to the log
-          logger.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} ); 
+          logger.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} );
           return;
       }
   } else if (requesttype == 'config') {
     // Request to provide configuration information (assume json response)
     var configitem = {};
-    
+
     switch(requeststring) {
       case 'settings':
         configitem = settings;
@@ -302,7 +304,7 @@ function requestHandler(request, response) {
         break;
       default:
         configitem = {"error" : "Unknown configuration item requested", "request" : request.url};
-        logger.warn("Unknown configuration item requested" , {'request' : request.url} ); 
+        logger.warn("Unknown configuration item requested" , {'request' : request.url} );
     }
     response.writeHead(200, {'Content-Type': 'application/json'});
     response.write(JSON.stringify(configitem));

@@ -1,14 +1,14 @@
 /*
   macro.js
-  
+
   Run a macro
   Returns a promise to the macros result (ACK or NAK)
   Result will be NAK if any one of the commands returns NAK
   Macros command occur sequentially
-  
+
   TTDs
     Setting the volume to a specific valid within a macro (see how server.js uses volume.js)
-  
+
 */
 
 // Q Promises library
@@ -22,21 +22,21 @@ function run(macro) {
   /*
     Run a macro and return success (ACK) or failure (NAK) via a promise
     All commands in the macro are run sequentially
-    
+
     Uses promises (rather than callbacks) to chain the commands and ensure they run sequentially (i.e. in series)
     This enables easier chaining of async commands in series
-    
+
     macro is a list of commands or wait statements
       e.g. macro = ['TURN_POWER_ON', 'WAIT:5000', 'SET_AUDIO_INPUT_TO_VCR1']
       Notice the colon to separate the Wait command from the wait time value, which is in miliseconds. e.g 1000 = 1 seconds
   */
-  
+
   // start with an "empty" already-fulfilled promise
   var currentpromise = Q();
-  
+
   // Run each command in the macro
   // Wait for each command to complete before running the next command
-  var promised_result = Q.all(macro.map(function(command) { 
+  var promised_result = Q.all(macro.map(function(command) {
     currentpromise = currentpromise.then(function() {
       if (command.substr(0,4).toUpperCase() == 'WAIT') {
         // Wait command
@@ -80,8 +80,8 @@ function run(macro) {
       return "NAK";
     }
   });
+
   return promised_result;
-  
   // Do not .catch or terminate with .done here as we should propagate any errors to the calling routine and terminate where there is no more chaining
 }
 

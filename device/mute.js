@@ -2,7 +2,7 @@
   toggle audio mute
   Returns a promise to the result (ACK or NAK)
   Uses promises to run the commands sequentially in series
-  
+
   TTDs:
     None
 */
@@ -10,7 +10,6 @@
 // Core library modules
 
 // Dependent modules
-//var Q = require('q');     // Promises
 
 // App modules
 var sr7400 = require('./sr7400');
@@ -23,10 +22,10 @@ function toggle() {
     1. Get the current mute status (ON/OFF)
     2. Determine which Mute On/Off command is required to toggle mute
     3. Process the appropriate mute command
-    
+
     Use promises to run the steps in waterfall/series
   */
-  
+
   // Step 1: Get mute status (ON/OFF)
   var promised_result = sr7400.p_send("GET_AUDIO_MUTE_STATUS")
 
@@ -52,13 +51,13 @@ function toggle() {
   .then(function processCommand(command) {
     return sr7400.p_send(command)
   })
-  
+
   // Final result
   .then(function(result) {
     // onFulfilled handler: successful fulfillment of the above promise chain
     return result;
   });
-  
+
   return promised_result;
   // Do not terminate with a .catch and .done as the calling routine should complete the promise chain
 }
@@ -79,5 +78,3 @@ toggle()
       console.info('...All done!');
 })
 .done();
-
-

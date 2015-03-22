@@ -1,5 +1,0 @@
-{"level":"warn","message":"Command not in SR7400 protocol: GET_MUTE_STATUS","timestamp":"2015-03-19T09:37:08.874Z"}
-{"request":"GET_MUTE_STATUS","result":"Command not in SR7400 protocol: GET_MUTE_STATUS","level":"warn","message":"**** SR7400 Command unsuccessful ****","timestamp":"2015-03-19T09:37:08.879Z"}
-{"level":"warn","message":"Command not in SR7400 protocol: GET_MUTE_STATUS","timestamp":"2015-03-19T09:38:43.054Z"}
-{"request":"GET_MUTE_STATUS","result":"Command not in SR7400 protocol: GET_MUTE_STATUS","level":"warn","message":"**** SR7400 Command unsuccessful ****","timestamp":"2015-03-19T09:38:43.055Z"}
-{"level":"warn","message":"Invalid request. Incorrect number of arguments: /command/get_audio_mute_status","timestamp":"2015-03-19T09:41:59.136Z"}

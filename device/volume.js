@@ -2,13 +2,12 @@
   Set volume to a specific db level or %
   Returns a promise to the result (ACK or NAK)
   Uses promises to run the commands sequentially in series
-  
+
   TTDs:
     More accurate volume setting using single DB changes as well as 5db changes
 */
 
 // Std library modules
-var Q = require('q');
 
 // App modules
 var sr7400 = require('./sr7400');
@@ -24,7 +23,7 @@ function setTo(requestedvolume) {
     1. Check the requested volume (dB)
     3. Calculate the number of up/down/ by 5db increments required
     4. Process the volume/up down commands
-    
+
     Use promises to run the steps in waterfall/series
   */
 
@@ -53,7 +52,7 @@ function setTo(requestedvolume) {
 
   // Step 2: Check the requested volume
   .then(function checkRequestedVolume(currentvolume){
-    // Check the requested volume and convert to an integer if required 
+    // Check the requested volume and convert to an integer if required
     switch(typeof requestedvolume) {
       case 'number' :
       case 'string' :
@@ -70,7 +69,7 @@ function setTo(requestedvolume) {
     }
     return [currentvolume, requestedvolume];
   })
-    
+
   // Step 3:  Calculate the number of 5db volume up/down increments required
   .spread(function calculateVolumeIncrements(currentvolume, requestedvolume) {
     // Determine the number of 5dBup/down increments
@@ -88,24 +87,24 @@ function setTo(requestedvolume) {
         // Turn volume down
         for (var i = 1; i <= Math.abs.increments; i++) {
             commands.push("TURN_VOLUME_DOWN_5DB");
-            commands.push("WAIT:10");            
+            commands.push("WAIT:10");
         }
     } else {
         // turn volume up
         for (var i = 1; i <= increments; i++) {
             commands.push("TURN_VOLUME_UP_5DB");
-            commands.push("WAIT:10");            
+            commands.push("WAIT:10");
         }
     }
     return macro.run(commands);
   })
-  
+
   // Final result
   .then(function(result) {
     // onFulfilled handler: successful fulfillment of the above promise chain
     return result;
   });
-  
+
   return promised_result;
   // Do not terminate with a .catch and .done as the calling routine should complete the promise chain
 }

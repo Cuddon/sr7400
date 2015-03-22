@@ -1,6 +1,6 @@
 # SR7400
-## Marantz SR7400 Web Service
-*Marantz SR7400 surround sound amplifier web service using a Global Cache GC-100 to connect to the SR7400 serial port via TCP.*
+## Marantz SR7400/SR8400 Web Service
+*Marantz SR7400 (or SR8400) surround sound amplifier web service using a Global Cache GC-100 to connect to the SR7400/SR8400 serial port via TCP.*
 
 Website: http://www.cuddon.net
 
@@ -17,15 +17,15 @@ Website: http://www.cuddon.net
 ```
     /api/requesttpe/requeststring               --> returns a string
     (Not yet implemented) /api/requesttpe/requeststring?return=json   --> returns json (optional)
-  
+
   Device commands and status requests
     /api/command/turn_power_on
     /api/command/get_volume_level
-  
+
   Macros
     /api/macro/watch_tv_with_surround_sound
     /api/macro/run/commands   (Not yet implemented)- commands is a list of commands
-    
+
   Config
     /api/config/settings
     /api/config/macros
@@ -60,4 +60,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-

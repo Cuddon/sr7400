@@ -1,7 +1,7 @@
 /*
   server.js
 
-  Marantz SR7400 web service
+  Marantz SR7400/SR8400 web service
 
   The MIT License (MIT)
 
@@ -29,6 +29,8 @@
 
 "use strict";
 
+var MODE = 'dev';   // or 'prod'
+
 // Import core library modules
 var http = require('http');
 var url = require("url");
@@ -41,7 +43,7 @@ var zeroconf = require('./zeroconf');   // Bonjour, Avahi, Zeroconf advertising
 var logger = require('./logger');
 var help = require('./help');           // API help
 
-// Device specific modules
+// SR7400 specific modules
 var sr7400 = require('./device/sr7400');       // SR7400 driver
 var macro = require('./device/macro');         // Macro module
 var volume = require('./device/volume');       // Volume module for setting volume to a specific value
@@ -55,7 +57,11 @@ var valid_statusmappings = Object.keys(mappings.statusmappings);
 var valid_macros = Object.keys(macros.macros);
 
 // Load settings
-var settings = require('./settings.json');
+if (mode == 'prod') {
+  var settings = require('./settings.json');
+} else {
+  var settings = require('./setting-dev.json')
+}
 
 // Create and start the HTTP server for receiving command requests
 var server = http.createServer();
@@ -146,7 +152,7 @@ function requestHandler(request, response) {
 
   if (args[1] == "favicon.ico") {
     // favicon request
-    faviconHandler();
+    faviconHandler(response);
     return;
   }
 
@@ -312,14 +318,14 @@ function requestHandler(request, response) {
   }
 }
 
-function errorresponse(code, err, resp) {
+function errorresponse(code, err, response) {
   // Return an HTTP error response
-  logger.warn(err , {'request' : resp.url} );
-  resp.writeHead(code, {"Content-Type": "text/plain"});
-  resp.end(err + "\n");
+  logger.warn(err , {'request' : response.url} );
+  response.writeHead(code, {"Content-Type": "text/plain"});
+  response.end(err + "\n");
 }
 
-function faviconHandler() {
+function faviconHandler(response) {
   // Serve up the favicon
   try {
     var img = fs.readFileSync("./www/favicon.ico");

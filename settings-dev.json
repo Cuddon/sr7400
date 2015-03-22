@@ -6,7 +6,7 @@
 
   "httpserver" : {
     "ip"   : "192.168.1.1",
-    "port" : 8080
+    "port" : 8085
   },
 
   "logging" : {
@@ -16,7 +16,7 @@
     "errorlog" : "./log/error.log",
     "maxfilesize" : 10000000,
     "handleExceptions" : false,
-    
+
     "logtomongo" : false,
     "mongoip" : "192.168.1.1",
     "mongoport" : 27017,

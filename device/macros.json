@@ -3,13 +3,13 @@
     "_version"  : "0.0.0",
 
     "_comment"  : "SR7400 macros",
-    
+
     "macros" : {
         "watch_tv"  : {
             "comment" : "Watch TV. Turn on T-BOX, Turn on TV",
             "commands" : []
         },
-        
+
         "watch_tv_with_surround_sound" : {
             "comment" : "Turn on AMP, Turn on TV, Turn on T-box, Set AMP input to DSS (TBOX)",
             "commands" : [

@@ -28,7 +28,7 @@ var text_record = {
 };
 
 var options = {
-    name : "Marantz SR7400 web service",
+    name : "Marantz SR7400/SR8400 web service",
     txtRecord : text_record
 };
 

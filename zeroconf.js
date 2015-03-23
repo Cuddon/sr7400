@@ -1,7 +1,12 @@
-// Service discovery
+/* 
+  Bonjour, Avahi, Zeroconf Service discovery
+
+  On Linux and other systems using the avahi daemon the avahi dns_sd compat library and its header files are required.
+    sudo apt-get install libavahi-compat-libdnssd-dev
+  On other platforms Apple's mDNSResponder is recommended. See https://github.com/agnat/node_mdns
+*/
 
 // Import core library modules
-// None
 
 // Import dependencies
 var mdns = require('mdns');

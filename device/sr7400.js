@@ -87,7 +87,7 @@ function send(command, callback) {
 
   client.on('data', function(response) {
     // Data received from the SR7400 (via the CG-100)
-    
+
     // Ensure we have a string and remove the training carriage return
     response = response.toString().trim();
 

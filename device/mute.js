@@ -65,7 +65,7 @@ function toggle() {
 // Expose key functions and variables to other modules
 exports.toggle = toggle;
 
-
+/*
 // Test
 toggle()
 .then(function(result){
@@ -78,3 +78,4 @@ toggle()
       console.info('...All done!');
 })
 .done();
+*/

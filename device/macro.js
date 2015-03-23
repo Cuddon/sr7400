@@ -17,7 +17,6 @@ var Q = require('q');
 // App modules
 var sr7400 = require('./sr7400');
 
-
 function run(macro) {
   /*
     Run a macro and return success (ACK) or failure (NAK) via a promise

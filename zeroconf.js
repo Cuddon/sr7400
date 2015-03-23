@@ -19,8 +19,8 @@ var d = new Date();
 var now = d.toDateString() + ' ' + d.toTimeString();;
 
 var text_record = {
-  "url" : settings.api.url,
-  "version" : settings.api.version,
+  url : settings.api.url,
+  version : settings.api.version,
   json : false,
   text : true,
   author : "Andrew Cuddon",

@@ -1,13 +1,13 @@
 {
     "_comment"  : "Mappings between std input names and actual devices (e.g. DSS -> TBOX)",
 
-    "commandmappings" : {
+    "command_mappings" : {
         "SELECT_INPUT_TBOX" : "SELECT_INPUT_DSS",
         "SELECT_INPUT_PS3"  : "SELECT_INPUT_DVD",
         "SELECT_INPUT_AIRPLAY" : "SELECT_INPUT_VCR1"
     },
     
-    "statusmappings" : {
+    "status_mappings" : {
         "DSS"  : "TBOX",
         "PS3"  : "DVD",
         "VCR1" : "AIRPLAY"

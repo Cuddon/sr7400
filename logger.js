@@ -39,7 +39,7 @@ if (settings.logging.logtofile) {
     maxFiles: 1,
     handleExceptions: settings.logging.handleExceptions
   });
-};
+}
 
 if (settings.logging.logtomongo) {
   require('winston-mongo').Mongo;

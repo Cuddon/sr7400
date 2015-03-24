@@ -2,8 +2,8 @@
 ##version 1.0.0
 
 ###  API
-    /api/requesttpe/requeststring               --> returns a string
-    (Not yet implemented) /api/requesttpe/requeststring?return=json   --> returns json (optional)
+    /api/requesttype/requeststring               --> returns a string
+    (Not yet implemented) /api/requesttype/requeststring?return=json   --> returns json (optional)
   
 ###  Device commands and status requests
     /api/command/turn_power_on

@@ -83,15 +83,16 @@ function setTo(requestedvolume) {
   // Step 4: Process the volume/up down commands
   .then(function changeVolume(increments) {
     var commands = [];
+    var i;
     if (increments < 0) {
         // Turn volume down
-        for (var i = 1; i <= Math.abs.increments; i++) {
+        for (i = 1; i <= Math.abs.increments; i++) {
             commands.push("TURN_VOLUME_DOWN_5DB");
             commands.push("WAIT:10");
         }
     } else {
         // turn volume up
-        for (var i = 1; i <= increments; i++) {
+        for (i = 1; i <= increments; i++) {
             commands.push("TURN_VOLUME_UP_5DB");
             commands.push("WAIT:10");
         }

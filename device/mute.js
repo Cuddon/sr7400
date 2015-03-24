@@ -49,7 +49,7 @@ function toggle() {
 
   // Step 3: Process the appropriate mute command
   .then(function processCommand(command) {
-    return sr7400.p_send(command)
+    return sr7400.p_send(command);
   })
 
   // Final result

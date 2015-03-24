@@ -31,13 +31,13 @@ function run(macro) {
   */
 
   // start with an "empty" already-fulfilled promise
-  var currentpromise = Q();
+  var current_promise = Q();
 
   // Run each command in the macro
   // Wait for each command to complete before running the next command
   var promised_result = Q.all(macro.map(function(command) {
-    currentpromise = currentpromise.then(function() {
-      if (command.substr(0,4).toUpperCase() == 'WAIT') {
+    current_promise = current_promise.then(function() {
+      if (command.substr(0,4).toUpperCase() === 'WAIT') {
         // Wait command
         var delayms = parseInt(command.substr(5), 10);
         if (isNaN(delayms)) {
@@ -63,7 +63,7 @@ function run(macro) {
       */
       return result;
     });
-    return currentpromise;
+    return current_promise;
   }))
   .then(function(results) {
     /*
@@ -71,7 +71,7 @@ function run(macro) {
       Results is an array of the send/delay results
       Check if any NAK items in the results array
     */
-    if (results.indexOf("NAK") == -1) {
+    if (results.indexOf("NAK") === -1) {
       // All commands successful
       return "ACK";
     } else {

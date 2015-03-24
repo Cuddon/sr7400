@@ -27,6 +27,7 @@
 
 */
 
+/* jshint node: true */
 "use strict";
 
 var MODE = 'dev';   // or 'prod'
@@ -48,20 +49,22 @@ var sr7400 = require('./device/sr7400');       // SR7400 driver
 var macro = require('./device/macro');         // Macro module
 var volume = require('./device/volume');       // Volume module for setting volume to a specific value
 var mute = require('./device/mute');           // Mute module for toggling audio mute
-var mappings = require('./device/mappings');       // e.g. DSS -> TBOX
+var mappings = require('./device/mappings.json');       // e.g. DSS -> TBOX
 var macros = require('./device/macros.json');
 
+// Load settings
+var settings;
+if (MODE === 'prod') {
+  settings = require('./settings.json');
+} else {
+  settings = require('./settings-dev.json');
+}
+
 // Configuration
-var valid_commandmappings = Object.keys(mappings.commandmappings);
-var valid_statusmappings = Object.keys(mappings.statusmappings);
+var valid_command_mappings = Object.keys(mappings.command_mappings);
+var valid_status_mappings = Object.keys(mappings.status_mappings);
 var valid_macros = Object.keys(macros.macros);
 
-// Load settings
-if (mode == 'prod') {
-  var settings = require('./settings.json');
-} else {
-  var settings = require('./setting-dev.json')
-}
 
 // Create and start the HTTP server for receiving command requests
 var server = http.createServer();
@@ -113,7 +116,7 @@ function requestHandler(request, response) {
   var err = false;
 
   // Confirm a GET request, otherwise return an error
-  if (request.method != 'GET' ) {
+  if (request.method !== 'GET' ) {
     err = "Invalid http method: " + request.method;
     errorresponse(500, err, response);
     return;
@@ -150,14 +153,14 @@ function requestHandler(request, response) {
   var args = url_parts.pathname.split("/");
   //console.log("Arguments: " + args + " (" + args.length + ")" );
 
-  if (args[1] == "favicon.ico") {
+  if (args[1] === "favicon.ico") {
     // favicon request
     faviconHandler(response);
     return;
   }
 
   // Check for correct number of API arguments
-  if (args.length == 4) {
+  if (args.length === 4) {
     leadin = args[1].toLowerCase();
     requesttype = args[2].toLowerCase();
     requeststring = args[3].toLowerCase();
@@ -168,16 +171,16 @@ function requestHandler(request, response) {
   }
 
   // Check the API leadin
-  if (leadin != settings.api.leadin) {
+  if (leadin !== settings.api.leadin) {
     // invalid leadin to the the api (e.g. must be /api)
     err = "Invalid request (api leadin): " + request.url;
     errorresponse(500, err, response);
     return;
   }
 
-  if (requesttype == 'command') {
+  if (requesttype === 'command') {
     // Send the command to the SR7400 and wait for a response
-    if (requeststring.substr(0,14) == 'set_volume_to_') {
+    if (requeststring.substr(0,14) === 'set_volume_to_') {
       // Set to specific volume command (not supported by the receiver so use the workaround)
       var requestedvolume = parseInt(requeststring.substring(14), 10);
       volume.setTo(requestedvolume)       // Promise
@@ -198,7 +201,7 @@ function requestHandler(request, response) {
           logger.warn('**** SR7400 Command unsuccessful ****', {'request' : requeststring, 'result' : err});
         })
         .done();
-    } else if (requeststring.substr(0,14) == 'toggle_mute') {
+    } else if (requeststring.substr(0,14) === 'toggle_mute') {
       // Toggle Audio Mute
       mute.toggle()       // Promise
         .then(function(result){
@@ -224,7 +227,7 @@ function requestHandler(request, response) {
       requeststring = requeststring.toUpperCase();  // interim until we make all commands lower case
 
       // Apply any command mappings e.g. SELECT_INPUT_TBOX -> SELECT_INPUT_DSS
-      if (valid_commandmappings.indexOf(requeststring) >= 0) {
+      if (valid_command_mappings.indexOf(requeststring) >= 0) {
           // A mapping exists so apply it
           requeststring = mappings.commandmappings[requeststring];
       }
@@ -237,7 +240,7 @@ function requestHandler(request, response) {
           result = result.toString();
 
           // Apply any mappings to the response // e.g. DSS -> TBOX
-          if (valid_statusmappings.indexOf(result) >= 0) {
+          if (valid_status_mappings.indexOf(result) >= 0) {
               result = mappings.statusmappings[result];
           }
 
@@ -255,7 +258,7 @@ function requestHandler(request, response) {
         })
         .done();
     }
-  } else if (requesttype == 'macro') {
+  } else if (requesttype === 'macro') {
     // Use the promise version of Macro
       if (valid_macros.indexOf(requeststring) >= 0) {
           // valid macro
@@ -288,7 +291,7 @@ function requestHandler(request, response) {
           logger.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} );
           return;
       }
-  } else if (requesttype == 'config') {
+  } else if (requesttype === 'config') {
     // Request to provide configuration information (assume json response)
     var configitem = {};
 

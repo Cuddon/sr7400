@@ -1,6 +1,7 @@
 {
   "name"          : "SR7400",
-  "_comment"      : "Settings for Marantz SR7400 web service",
+  "description"   : "Marantz SR7400 web service",
+  "_comment"      : "Settings - json format",
   "_contributors" : ["Andrew Cuddon"],
   "_website"      : "http://www.cuddon.net/sr7400",
 
@@ -15,7 +16,7 @@
     "requestloglevel" : "warn",
     "errorlog" : "./log/error.log",
     "maxfilesize" : 10000000,
-    "handleExceptions" : false,
+    "handleExceptions" : true,
     
     "logtomongo" : false,
     "mongoip" : "192.168.1.1",
@@ -36,5 +37,5 @@
     "ip"   : "192.168.1.70",
     "port_serial_1" : 4999,
     "port_infrared_1" : 4998
-  },
+  }
 }

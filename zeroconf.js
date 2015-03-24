@@ -1,21 +1,12 @@
-<<<<<<< HEAD
 /*
  Service discovery using Zeroconf/Bonjour/Avahi
 
  Note on Linux requires:
    sudo apt-get install libavahi-compat-libdnssd-dev
+ On other platforms Apple's mDNSResponder is recommended. See https://github.com/agnat/node_mdns
 */
 
 var MODE = 'dev';   // or 'prod'
-=======
-/* 
-  Bonjour, Avahi, Zeroconf Service discovery
-
-  On Linux and other systems using the avahi daemon the avahi dns_sd compat library and its header files are required.
-    sudo apt-get install libavahi-compat-libdnssd-dev
-  On other platforms Apple's mDNSResponder is recommended. See https://github.com/agnat/node_mdns
-*/
->>>>>>> origin/v1.1.0
 
 // Import core library modules
 
@@ -37,28 +28,16 @@ var d = new Date();
 var now = d.toDateString() + ' ' + d.toTimeString();
 
 var text_record = {
-<<<<<<< HEAD
   url     : settings.api.url,
   version : settings.api.version,
   json    : false,
   text    : true,
   author  : "Andrew Cuddon",
-=======
-  url : settings.api.url,
-  version : settings.api.version,
-  json : false,
-  text : true,
-  author : "Andrew Cuddon",
->>>>>>> origin/v1.1.0
   started : now
 };
 
 var options = {
-<<<<<<< HEAD
     name : settings.description,
-=======
-    name : "Marantz SR7400/SR8400 web service",
->>>>>>> origin/v1.1.0
     txtRecord : text_record
 };
 

@@ -37,8 +37,6 @@
         Added a promise version of the send function. This enables easier chaining of multiple send commands
 */
 
-var VERSION = "1.0.1";
-
 // Import libraries
 var net = require('net');   // TCP network library
 var Q = require('q');       // Q promise library
@@ -48,7 +46,7 @@ var protocol = require('./Marantz SR7400 Serial Protocol.json');
 var valid_commands = Object.keys(protocol.commands);
 var valid_status_responses = Object.keys(protocol.statuscodes);
 
-var settings = require('../settings/settings-prod.json');
+var settings = require('../settings/settings');
 
 // Constants
 var CR = "\x0D";     // Carriage Return (Hex 0D, \r)

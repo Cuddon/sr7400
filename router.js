@@ -1,11 +1,13 @@
-/**
- * Created by Andrew on 25/03/2015.
- */
+/*
+ URL Router
+ Originally based on https://github.com/chbrown/regex-router
+*/
 
 // Function class
-function Router() {
+function Router(default_controller) {
   this.routes = [];   // List of routes and their controllers
   this.nroutes = 0;   // Number of routes
+  this.default = default_controller || function(){};
 }
 
 Router.prototype.add = function(regex, controller) {
@@ -23,7 +25,6 @@ Router.prototype.add = function(regex, controller) {
   this.nroutes++;
 };
 
-
 Router.prototype.handle_url = function(req, res) {
   /*
     Route a url
@@ -37,10 +38,12 @@ Router.prototype.handle_url = function(req, res) {
     var route = this.routes[i];
     var match = url.match(route.regex);
     if (match) {
+      // Return and execute the matched controller and exit the for loop
       return route.controller(req, res, match);
     }
   }
-  return this.default(req, res, req.url);
+  // No route match so return and execute the default controller
+  return this.default(req, res);
 };
 
 
@@ -48,15 +51,20 @@ module.exports = Router;
 
 // tests
 
+/*
+// Default controller
+function default_controller(req, res) {
+  console.warn('No matching route: ', req.url, res);
+}
 // Create an instance of Router class
-var router = new Router();
+var router = new Router(default_controller);
 
 function mycontroller(req, res, data) {
-  console.log('My Controller', req.url, res, data[1]);
+  console.log('My Controller: ', req.url, res, data[1]);
 }
 
 function rootcontroller(req, res) {
-  console.log('Home Page Controller:', req.url, res);
+  console.log('Home Page Controller: ', req.url, res);
 }
 
 router.add(/^\/api\/command\/([a-zA-Z0-9_]+)$/, mycontroller);
@@ -70,3 +78,6 @@ var req = {
 var res = {};
 router.handle_url(req, res);
 router.handle_url({url : '/'}, res);
+router.handle_url({url : '/blah'}, res);
+
+*/

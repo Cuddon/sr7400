@@ -1,83 +1,76 @@
 {
-    "_protocol" : "Marantz SR7400 Surround Sound Amplifier serial interface",
-    "_version"  : "0.0.0",
+    "watch_tv"  : {
+        "comment" : "Watch TV. Turn on T-BOX, Turn on TV",
+        "commands" : []
+    },
 
-    "_comment"  : "SR7400 macros",
-
-    "macros" : {
-        "watch_tv"  : {
-            "comment" : "Watch TV. Turn on T-BOX, Turn on TV",
-            "commands" : []
-        },
-
-        "watch_tv_with_surround_sound" : {
-            "comment" : "Turn on AMP, Turn on TV, Turn on T-box, Set AMP input to DSS (TBOX)",
-            "commands" : [
-                "TURN_POWER_ON",
-                "SET_VOLUME_TO_-30",
-                "SELECT_INPUT_DSS",
-                "SET_SURROUND_MODE_TO_AUTO",
-                "TURN_VIDEO_MUTE_ON"
-            ]
-        },
-        "listen_to_music_via_airplay" : {
-            "comment" : "Turn on AMP, Set AMP volume to normal, Set AMP audio input to VCR1, Set surround mode to multi-channel stereo",
-            "commands" : [
-                "TURN_POWER_ON",
-                "SET_VOLUME_TO_-30",
-                "SELECT_INPUT_VCR1",
-                "SET_SURROUND_MODE_TO_MULTICHANNEL-STEREO",
-                "TURN_VIDEO_MUTE_ON"
-            ]
-        },
-        "play_a_game_on_the_ps3" : {
-            "comment" : "Turn on AMP, Set AMP volume to normal, Set AMP audio input to VCR1, Set surround mode to Auto",
-            "commands" : [
-                "TURN_POWER_ON",
-                "SET_VOLUME_TO_-30",
-                "SELECT_INPUT_DVD",
-                "SET_SURROUND_MODE_TO_AUTO",
-                "TURN_VIDEO_MUTE_ON"
-            ]
-        },
-        "listen_to_music_on_the_ps3" : {
-            "comment" : "Turn on AMP, Set AMP volume to normal, Set AMP audio input to VCR1, Set surround mode to Auto",
-            "commands" : [
-                "TURN_POWER_ON",
-                "SET_VOLUME_TO_-30",
-                "SELECT_INPUT_DVD",
-                "SET_SURROUND_MODE_TO_MULTICHANNEL-STEREO",
-                "TURN_VIDEO_MUTE_ON"
-            ]
-        },
-        "watch_a_movie_on_the_ps3" : {
-            "comment" : "Turn on AMP, Set AMP volume to normal, Set AMP audio input to VCR1, Set surround mode to Auto",
-            "commands" : [
-                "TURN_POWER_ON",
-                "SET_VOLUME_TO_-30",
-                "SELECT_INPUT_DVD",
-                "SET_SURROUND_MODE_TO_AUTO",
-                "TURN_VIDEO_MUTE_ON"
-            ]
-        },
-        "watch_home_videos_on_the_ps3" : {
-            "comment" : "Turn on AMP, Set AMP volume to normal, Set AMP audio input to VCR1, Set surround mode to Auto",
-            "commands" : [
-                "TURN_POWER_ON",
-                "SET_VOLUME_TO-30",
-                "SELECT_INPUT_DVD",
-                "SET_SURROUND_MODE_TO_AUTO",
-                "TURN_VIDEO_MUTE_ON"
-            ]
-        },
-        "turn_off" : {
-            "comment" : "Turn on AMP, Set AMP volume to normal, Set AMP audio input to VCR1, Set surround mode to Auto",
-            "commands" : [
-                "SET_VOLUME_TO-30",
-                "SELECT_INPUT_DVD",
-                "SET_SURROUND_MODE_TO_AUTO",
-                "TURN_POWER_OFF"
-            ]
-        }
+    "watch_tv_with_surround_sound" : {
+        "comment" : "Turn on AMP, Turn on TV, Turn on T-box, Set AMP input to DSS (TBOX)",
+        "commands" : [
+            "TURN_POWER_ON",
+            "SET_VOLUME_TO_-30",
+            "SELECT_INPUT_DSS",
+            "SET_SURROUND_MODE_TO_AUTO",
+            "TURN_VIDEO_MUTE_ON"
+        ]
+    },
+    "listen_to_music_via_airplay" : {
+        "comment" : "Turn on AMP, Set AMP volume to normal, Set AMP audio input to VCR1, Set surround mode to multi-channel stereo",
+        "commands" : [
+            "TURN_POWER_ON",
+            "SET_VOLUME_TO_-30",
+            "SELECT_INPUT_VCR1",
+            "SET_SURROUND_MODE_TO_MULTICHANNEL-STEREO",
+            "TURN_VIDEO_MUTE_ON"
+        ]
+    },
+    "play_a_game_on_the_ps3" : {
+        "comment" : "Turn on AMP, Set AMP volume to normal, Set AMP audio input to VCR1, Set surround mode to Auto",
+        "commands" : [
+            "TURN_POWER_ON",
+            "SET_VOLUME_TO_-30",
+            "SELECT_INPUT_DVD",
+            "SET_SURROUND_MODE_TO_AUTO",
+            "TURN_VIDEO_MUTE_ON"
+        ]
+    },
+    "listen_to_music_on_the_ps3" : {
+        "comment" : "Turn on AMP, Set AMP volume to normal, Set AMP audio input to VCR1, Set surround mode to Auto",
+        "commands" : [
+            "TURN_POWER_ON",
+            "SET_VOLUME_TO_-30",
+            "SELECT_INPUT_DVD",
+            "SET_SURROUND_MODE_TO_MULTICHANNEL-STEREO",
+            "TURN_VIDEO_MUTE_ON"
+        ]
+    },
+    "watch_a_movie_on_the_ps3" : {
+        "comment" : "Turn on AMP, Set AMP volume to normal, Set AMP audio input to VCR1, Set surround mode to Auto",
+        "commands" : [
+            "TURN_POWER_ON",
+            "SET_VOLUME_TO_-30",
+            "SELECT_INPUT_DVD",
+            "SET_SURROUND_MODE_TO_AUTO",
+            "TURN_VIDEO_MUTE_ON"
+        ]
+    },
+    "watch_home_videos_on_the_ps3" : {
+        "comment" : "Turn on AMP, Set AMP volume to normal, Set AMP audio input to VCR1, Set surround mode to Auto",
+        "commands" : [
+            "TURN_POWER_ON",
+            "SET_VOLUME_TO-30",
+            "SELECT_INPUT_DVD",
+            "SET_SURROUND_MODE_TO_AUTO",
+            "TURN_VIDEO_MUTE_ON"
+        ]
+    },
+    "turn_off" : {
+        "comment" : "Turn on AMP, Set AMP volume to normal, Set AMP audio input to VCR1, Set surround mode to Auto",
+        "commands" : [
+            "SET_VOLUME_TO-30",
+            "SELECT_INPUT_DVD",
+            "SET_SURROUND_MODE_TO_AUTO",
+            "TURN_POWER_OFF"
+        ]
     }
 }

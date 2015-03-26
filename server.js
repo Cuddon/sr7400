@@ -34,23 +34,16 @@ var MODE = 'dev';   // or 'prod'
 
 // Import core library modules
 var http = require('http');
-var url = require("url");
-var fs = require("fs");
 
 // Import dependencies
 
 // Import App modules
-var zeroconf = require('./zeroconf');   // Bonjour, Avahi, Zeroconf advertising
+if (/^linux/.test(process.platform)) {
+  var zeroconf = require('./zeroconf');   // Bonjour, Avahi, Zeroconf advertising
+}
 var logger = require('./logger');
-var help = require('./help');           // API help
-
-// SR7400 specific modules
-var sr7400 = require('./device/sr7400');       // SR7400 driver
-var macro = require('./device/macro');         // Macro module
-var volume = require('./device/volume');       // Volume module for setting volume to a specific value
-var mute = require('./device/mute');           // Mute module for toggling audio mute
-var mappings = require('./device/mappings.json');       // e.g. DSS -> TBOX
-var macros = require('./device/macros.json');
+var R = require('./router');
+var controllers = require('./controllers');
 
 // Load settings
 var settings;
@@ -60,17 +53,25 @@ if (MODE === 'prod') {
   settings = require('./settings-dev.json');
 }
 
-// Configuration
-var valid_command_mappings = Object.keys(mappings.command_mappings);
-var valid_status_mappings = Object.keys(mappings.status_mappings);
-var valid_macros = Object.keys(macros.macros);
+// Set up the url router
+var router = new R(controllers.default_controller);
+// Add the routes (ORDER is important)
+router.add(/^\/api\/command\/toggle_mute$/, controllers.toggle_mute_controller);
+router.add(/^\/api\/command\/set_volume_to_(\d+)$/, controllers.set_volume_controller);
+router.add(/^\/api\/command\/([a-zA-Z0-9_]+)$/, controllers.command_controller);
+router.add(/^\/api\/macro\/([a-zA-Z0-9_]+)$/, controllers.macro_controller);
+router.add(/^\/api\/config\/([a-zA-Z0-9_]+)$/, controllers.config_controller);
+router.add(/^\/$/, controllers.homepage_controller);
+router.add(/^\/api\/favicon.ico$/, controllers.favicon_controller);
 
 
 // Create and start the HTTP server for receiving command requests
 var server = http.createServer();
 server.listen(settings.httpserver.port, settings.httpserver.ip, 511, function() {
   // Now that the server has started listening for HTTP requests, start Zeroconf/Bonjour/Avahi advertising
-  zeroconf.advertise();
+  if (/^linux/.test(process.platform)) {
+    zeroconf.advertise();
+  }
   logger.info('HTTP server running at http://' + settings.httpserver.ip + ":" + settings.httpserver.port);
 });
 logger.info("---------------------- Marantz SR7400 Web Service---------------------- ");
@@ -86,10 +87,7 @@ server.on('close', function (request, response) {
 function requestHandler(request, response) {
   /*
     request = {
-      socket: { … },
-      connection: { … },
       httpVersion: '1.1',
-      complete: false,
       headers:
         {
           host: 'localhost:8080',
@@ -101,240 +99,22 @@ function requestHandler(request, response) {
           'accept-language': 'en-US,en;q=0.8',
           'accept-charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'
          },
-      trailers: {},
-      readable: true,
       url: '/',
       method: 'GET',
-      statusCode: null,
-      client:  { … },
-      httpVersionMajor: 1,
-      httpVersionMinor: 1,
-      upgrade: false
+      ...
     }
   */
-
-  var err = false;
 
   // Confirm a GET request, otherwise return an error
   if (request.method !== 'GET' ) {
-    err = "Invalid http method: " + request.method;
-    errorresponse(500, err, response);
+    var err = "Invalid http method: " + request.method;
+    logger.warn(err , {'request' : response.url} );
+    response.writeHead(500, {"Content-Type": "text/plain"});
+    response.end(err + "\n");
     return;
   }
 
-  // Find parts of the URL path of the request
-  var url_parts = url.parse(request.url, true);
-  /*
-    e.g.
-    request.url = 'http://user:pass@host.com:8080/p/a/t/h?query=string#hash'
-    url_parts = {
-      href: 'http://user:pass@host.com:8080/p/a/t/h?query=string#hash',
-      protocol: 'http:',
-      host: 'user:pass@host.com:8080',
-      auth: 'user:pass',
-      hostname: 'host.com',
-      port: '8080',
-      pathname: '/p/a/t/h',
-      search: '?query=string',
-      query: { query: 'string' },
-      hash: '#hash',
-      slashes: true
-    }
-
-    pathname = /api/requesttype/requeststring
-      requesttype = 'command|macro|config'
-      e.g. /api/command/get_volume_level
-            /api/config/protocol
-  */
-  // Extract the command
-  var requesttype = "";
-  var requeststring = "";
-  var leadin = "";
-  var args = url_parts.pathname.split("/");
-  //console.log("Arguments: " + args + " (" + args.length + ")" );
-
-  if (args[1] === "favicon.ico") {
-    // favicon request
-    faviconHandler(response);
-    return;
-  }
-
-  // Check for correct number of API arguments
-  if (args.length === 4) {
-    leadin = args[1].toLowerCase();
-    requesttype = args[2].toLowerCase();
-    requeststring = args[3].toLowerCase();
-  } else {
-    err = "Invalid request. Incorrect number of arguments: " + request.url;
-    errorresponse(500, err, response);
-    return;
-  }
-
-  // Check the API leadin
-  if (leadin !== settings.api.leadin) {
-    // invalid leadin to the the api (e.g. must be /api)
-    err = "Invalid request (api leadin): " + request.url;
-    errorresponse(500, err, response);
-    return;
-  }
-
-  if (requesttype === 'command') {
-    // Send the command to the SR7400 and wait for a response
-    if (requeststring.substr(0,14) === 'set_volume_to_') {
-      // Set to specific volume command (not supported by the receiver so use the workaround)
-      var requestedvolume = parseInt(requeststring.substring(14), 10);
-      volume.setTo(requestedvolume)       // Promise
-        .then(function(result){
-          // Volume command completed OK
-          response.writeHead(200, {'Content-Type': 'text/plain'});
-          response.write("ACK");
-          response.end();
-          // Save the result to the log
-          logger.info('**** SR7400 Command successful ****', {'request' : requeststring, 'result' : result});
-        })
-        .fail(function(err){
-          // Error processing the volume command
-          response.writeHead(200, {'Content-Type': 'text/plain'});
-          response.write(err);
-          response.end();
-          // Save the result to the log
-          logger.warn('**** SR7400 Command unsuccessful ****', {'request' : requeststring, 'result' : err});
-        })
-        .done();
-    } else if (requeststring.substr(0,14) === 'toggle_mute') {
-      // Toggle Audio Mute
-      mute.toggle()       // Promise
-        .then(function(result){
-          // Volume command completed OK
-          response.writeHead(200, {'Content-Type': 'text/plain'});
-          response.write("ACK");
-          response.end();
-          // Save the result to the log
-          logger.info('**** SR7400 Command successful ****', {'request' : requeststring, 'result' : result});
-        })
-        .fail(function(err){
-          // Error processing the volume command
-          response.writeHead(200, {'Content-Type': 'text/plain'});
-          response.write(err);
-          response.end();
-          // Save the result to the log
-          logger.warn('**** SR7400 Command unsuccessful ****', {'request' : requeststring, 'result' : err});
-        })
-        .done();
-    } else {
-      // Normal command that is in the protocol
-
-      requeststring = requeststring.toUpperCase();  // interim until we make all commands lower case
-
-      // Apply any command mappings e.g. SELECT_INPUT_TBOX -> SELECT_INPUT_DSS
-      if (valid_command_mappings.indexOf(requeststring) >= 0) {
-          // A mapping exists so apply it
-          requeststring = mappings.commandmappings[requeststring];
-      }
-
-      // Now send the command to the SR7400 (Uses promises)
-      sr7400.p_send(requeststring)
-        .then(function(result){
-          // Valid response from the SR7400
-          // Ensure it is a sting (esp for volume levels etc)
-          result = result.toString();
-
-          // Apply any mappings to the response // e.g. DSS -> TBOX
-          if (valid_status_mappings.indexOf(result) >= 0) {
-              result = mappings.statusmappings[result];
-          }
-
-          response.writeHead(200, {'Content-Type': 'text/plain'});
-          response.write(result);
-          response.end();
-
-          // Save the result to the log
-          logger.info('**** SR7400 Command successful ****', {'request' : requeststring, 'result' : result});
-        })
-        .fail(function(err){
-          errorresponse(500, err, response);
-          // Save the result to the log
-          logger.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} );
-        })
-        .done();
-    }
-  } else if (requesttype === 'macro') {
-    // Use the promise version of Macro
-      if (valid_macros.indexOf(requeststring) >= 0) {
-          // valid macro
-          var commandlist = macros.macros[requeststring].commands;
-          // Run the macros (Note: macro is a Promise
-          macro.run(commandlist)
-            .then(function(result){
-              // All macro commands completed OK
-              response.writeHead(200, {'Content-Type': 'text/plain'});
-              response.write("ACK");
-              response.end();
-              // Save the result to the log
-              logger.info('\n**** SR7400 Command successful ****\n', {'request' : requeststring, 'result' : result});
-
-            })
-            .fail(function(err){
-              // One or more macros commands had an error
-              response.writeHead(200, {'Content-Type': 'text/plain'});
-              response.write(err);
-              response.end();
-              // Save the result to the log
-              logger.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} );
-            })
-            .done();
-      } else {
-          // The macro does not exist in the protocol
-          err = "Error - macro not found in the SR7400 protocol: " + requeststring;
-          errorresponse(500, err, response);
-          // Save the result to the log
-          logger.warn('**** SR7400 Command unsuccessful ****' , {'request' : requeststring, 'result' : err} );
-          return;
-      }
-  } else if (requesttype === 'config') {
-    // Request to provide configuration information (assume json response)
-    var configitem = {};
-
-    switch(requeststring) {
-      case 'settings':
-        configitem = settings;
-        break;
-      case 'protocol':
-        configitem = sr7400.protocol;
-        break;
-      case 'macros':
-        configitem = macros;
-        break;
-      case 'mappings':
-        configitem = mappings;
-        break;
-      case 'help':
-        configitem = help;
-        break;
-      default:
-        configitem = {"error" : "Unknown configuration item requested", "request" : request.url};
-        logger.warn("Unknown configuration item requested" , {'request' : request.url} );
-    }
-    response.writeHead(200, {'Content-Type': 'application/json'});
-    response.write(JSON.stringify(configitem));
-    response.end();
-  }
+  // Route the url request
+  router.handle_url(request, response);
 }
 
-function errorresponse(code, err, response) {
-  // Return an HTTP error response
-  logger.warn(err , {'request' : response.url} );
-  response.writeHead(code, {"Content-Type": "text/plain"});
-  response.end(err + "\n");
-}
-
-function faviconHandler(response) {
-  // Serve up the favicon
-  try {
-    var img = fs.readFileSync("./www/favicon.ico");
-    response.writeHead(200, {"Content-Type": "image/x-icon"});
-    response.end(img, 'binary');
-  } catch (err) {
-    errorresponse(500, err, response);
-  }
-}

@@ -38,23 +38,15 @@ var http = require('http');
 // Import dependencies
 
 // Import App modules
-if (/^linux/.test(process.platform)) {
-  var zeroconf = require('./zeroconf');   // Bonjour, Avahi, Zeroconf advertising
-}
+var settings = require('./settings/settings');
 var logger = require('./logger');
-var R = require('./router');
+var Router = require('./router');
 var controllers = require('./controllers');
+var zeroconf = require('./zeroconf');   // Bonjour, Avahi, Zeroconf advertising
 
-// Load settings
-var settings;
-if (MODE === 'prod') {
-  settings = require('./settings.json');
-} else {
-  settings = require('./settings-dev.json');
-}
 
 // Set up the url router
-var router = new R(controllers.default_controller);
+var router = new Router(controllers.default_controller);
 // Add the routes (ORDER is important)
 router.add(/^\/api\/command\/toggle_mute$/, controllers.toggle_mute_controller);
 router.add(/^\/api\/command\/set_volume_to_(\d+)$/, controllers.set_volume_controller);
@@ -69,9 +61,7 @@ router.add(/^\/api\/favicon.ico$/, controllers.favicon_controller);
 var server = http.createServer();
 server.listen(settings.httpserver.port, settings.httpserver.ip, 511, function() {
   // Now that the server has started listening for HTTP requests, start Zeroconf/Bonjour/Avahi advertising
-  if (/^linux/.test(process.platform)) {
-    zeroconf.advertise();
-  }
+  zeroconf.advertise();
   logger.info('HTTP server running at http://' + settings.httpserver.ip + ":" + settings.httpserver.port);
 });
 logger.info("---------------------- Marantz SR7400 Web Service---------------------- ");

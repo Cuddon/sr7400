@@ -8,7 +8,7 @@
 var winston = require('winston');
 
 // Settings
-var settings = require('./settings');
+var settings = require('./settings/settings');
 
 // Create a new logger instance
 var logger = new (winston.Logger)({

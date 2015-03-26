@@ -1,6 +1,6 @@
 /*
  URL Router
- Originally based on https://github.com/chbrown/regex-router
+ Based on https://github.com/chbrown/regex-router
 */
 
 // Function class

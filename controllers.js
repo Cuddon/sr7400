@@ -8,7 +8,7 @@ var fs = require("fs");
 // App modules
 var help = require('./help');           // API help
 var logger = require('./logger');
-var settings = require('./settings.json');
+var settings = require('./settings/settings');
 
 // SR7400 specific modules
 var sr7400 = require('./device/sr7400');       // SR7400 driver

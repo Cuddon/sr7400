@@ -6,8 +6,6 @@
  On other platforms Apple's mDNSResponder is recommended. See https://github.com/agnat/node_mdns
 */
 
-var MODE = 'dev';   // or 'prod'
-
 // Import core library modules
 
 // Import dependencies
@@ -15,13 +13,7 @@ var mdns = require('mdns');
 
 // Import App modules
 var logger = require('./logger');
-// Load settings
-var settings;
-if (MODE === 'prod') {
-  settings = require('./settings.json');
-} else {
-  settings = require('./settings-dev.json');
-}
+var settings = require('./settings/settings');
 
 // Current date/time
 var d = new Date();
@@ -45,6 +37,11 @@ var port = settings.httpserver.port;
 var service_type = mdns.tcp('http');     // http service over tcp (_http._tcp)
 
 function createAdvertisement(servicetype, port, options) {
+  if (!(/^linux/.test(process.platform))) {
+    logger.warn("Zeroconf advertising not started due to unsupoorted OS: " + process.platform)
+    return;
+  }
+
   try {
     var adv = mdns.createAdvertisement(servicetype, port, options);
     adv.on('error', handleError);

@@ -48,7 +48,7 @@ var protocol = require('./Marantz SR7400 Serial Protocol.json');
 var valid_commands = Object.keys(protocol.commands);
 var valid_status_responses = Object.keys(protocol.statuscodes);
 
-var settings = require('../settings.json');
+var settings = require('../settings/settings-prod.json');
 
 // Constants
 var CR = "\x0D";     // Carriage Return (Hex 0D, \r)

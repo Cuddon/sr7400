@@ -42,9 +42,9 @@ if (settings.logging.logtofile) {
 }
 
 if (settings.logging.logtomongo) {
-  require('winston-mongo').Mongo;
+  require('winston-mongodb').MongoDB;
   // Create MongoDB instance and cap size at 100mb
-  new winston.transports.MongoDB({
+  logger.add(winston.transports.MongoDB, {
     host: settings.logging.mongoip,
     username : settings.logging.mongousername,
     password : settings.logging.mongopassword,
@@ -61,8 +61,9 @@ if (settings.logging.logtomongo) {
 //  logger.info("Hello world, Winston logger")
 module.exports = logger;
 
-/*
+
 // Tests
+/*
 logger.info('Hello distributed logs. This is FYI only');
 logger.warn('This is a warning');
 logger.error('This is an error with some data', {data: 'Some data'});
@@ -87,3 +88,4 @@ setTimeout(function() {
 }, 1000)
 
 */
+

@@ -14,6 +14,7 @@
   "dependencies": {
     "mdns"    : "2.2.x",
     "q"       : "1.2.x",
-    "winston" : "0.9.x"
+    "winston" : "0.9.x",
+    "winston-mongodb" : "1.1.x"
   }
 }

@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
+<html lang="en">
+
+<head>
     <meta charset="UTF-8">
     <title>SR7400/SR8400 Web Service</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/app.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
-    <p>Help info goes here</p>
+    <div class="container">
+        <h1><span class="label label-default">SR7400/SR8400 Surround Sound Receiver Web Service</span></h1>
+        <img src="/marantz-sr7400.jpg">
+        <h2>API structure</h2>
+        <p>/api/request_type/request_string   --> returns a string</p>
+        <p>(Not yet implemented) /api/request_type/request_string?return=json   --> returns json (optional)</p>
+
+        <h2>Device commands and status requests</h2>
+        <a href="/api/command/turn_power_on">/api/command/turn_power_on</a>
+        </br>
+        <a href="/api/command/get_power_status">/api/command/get_power_status</a>
+        </br>
+
+        <h2>Macros</h2>
+        <a href="/api/macro/watch_tv_with_surround_sound">/api/macros/watch_tv_with_surround_sound</a>
+        <p>/api/macro/run/commands   (Not yet implemented)- commands is a list of commands</p>
+
+        <h2>Configuration</h2>
+        <a href="/api/config/settings">/api/config/settings</a>
+        </br>
+        <a href="/api/config/macros">/api/config/macros</a>
+        </br>
+        <a href="/api/config/protocol">/api/config/protocol</a>
+        </br>
+        <a href="/api/config/mappings">/api/config/mappings</a>
+        </br>
+        <a href="/api/config/help">/api/config/help</a>
+
+        <h2>Logs</h2>
+        <a href="/api/log/requests">/api/log/requests</a>
+        </br>
+        <a href="/api/log/errors">/api/log/errors</a>
+        </br></br>
+    </div>
 </body>
 </html>

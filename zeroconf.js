@@ -8,9 +8,6 @@
 
 // Import core library modules
 
-// Import dependencies
-var mdns = require('mdns');
-
 // Import App modules
 var logger = require('./logger');
 var settings = require('./settings/settings');
@@ -33,12 +30,24 @@ var options = {
     txtRecord : text_record
 };
 
-var port = settings.httpserver.port;
-var service_type = mdns.tcp('http');     // http service over tcp (_http._tcp)
+// Set up the service
+var mdns, service_type, port;
+if (/^linux/.test(process.platform)) {
+  // Currently only Linux is supported
+  mdns = require('mdns');
+  service_type = mdns.tcp('http');     // http service over tcp (_http._tcp)
+  port = settings.httpserver.port;
+} else {
+  mdns = null;
+  service_type = null;
+  port = null;
+}
+
 
 function createAdvertisement(servicetype, port, options) {
   if (!(/^linux/.test(process.platform))) {
-    logger.warn("Zeroconf advertising not started due to unsupoorted OS: " + process.platform)
+    // Not Linux so do not advertise
+    logger.warn("Zeroconf advertising not started due to unsupported OS: " + process.platform)
     return;
   }
 

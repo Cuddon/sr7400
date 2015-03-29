@@ -1,0 +1,18 @@
+{"level":"info","message":"---------------------- Marantz SR7400/SR8400 Web Service---------------------- ","timestamp":"2015-03-29T05:38:55.160Z"}
+{"level":"warn","message":"Zeroconf advertising not started due to unsupported OS: win32","timestamp":"2015-03-29T05:38:55.172Z"}
+{"level":"info","message":"HTTP server running at http://192.168.1.3:8085","timestamp":"2015-03-29T05:38:55.173Z"}
+{"request":"/","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:38:55.305Z"}
+{"request":"/app.css","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:38:55.361Z"}
+{"request":"/marantz-sr7400.jpg","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:38:55.384Z"}
+{"request":"/favicon.ico","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:38:55.441Z"}
+{"request":"/api/config/settings","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:39:04.785Z"}
+{"request":"/api/log/errors","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:39:10.124Z"}
+{"request":"/api/log/requests","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:39:14.161Z"}
+{"request":"/","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:45:15.130Z"}
+{"request":"/app.css","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:45:15.202Z"}
+{"request":"/marantz-sr7400.jpg","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:45:15.210Z"}
+{"request":"/favicon.ico","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:45:16.640Z"}
+{"request":"/","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:49:11.045Z"}
+{"request":"/app.css","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:49:11.107Z"}
+{"request":"/marantz-sr7400.jpg","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:49:11.110Z"}
+{"request":"/favicon.ico","response":"ok","level":"info","message":"","timestamp":"2015-03-29T05:49:11.752Z"}

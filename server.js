@@ -30,8 +30,6 @@
 /* jshint node: true */
 "use strict";
 
-var MODE = 'dev';   // or 'prod'
-
 // Import core library modules
 var http = require('http');
 
@@ -48,14 +46,16 @@ var zeroconf = require('./zeroconf');   // Bonjour, Avahi, Zeroconf advertising
 // Set up the url router
 var router = new Router(controllers.default_controller);
 // Add the routes (ORDER is important)
-router.add(/^\/api\/command\/toggle_mute$/, controllers.toggle_mute_controller);
-router.add(/^\/api\/command\/set_volume_to_(\d+)$/, controllers.set_volume_controller);
-router.add(/^\/api\/command\/([a-zA-Z0-9_]+)$/, controllers.command_controller);
-router.add(/^\/api\/macro\/([a-zA-Z0-9_]+)$/, controllers.macro_controller);
-router.add(/^\/api\/config\/([a-zA-Z0-9_]+)$/, controllers.config_controller);
-router.add(/^\/$/, controllers.homepage_controller);
-router.add(/^\/api\/favicon.ico$/, controllers.favicon_controller);
-
+router.add(/^\/api\/command\/toggle_mute\/?$/, controllers.toggle_mute_controller);
+router.add(/^\/api\/command\/set_volume_to_([\d-+]+)\/?$/, controllers.set_volume_controller);
+router.add(/^\/api\/command\/([a-zA-Z0-9_]+)\/?$/, controllers.command_controller);
+router.add(/^\/api\/macro\/([a-zA-Z0-9_]+)\/?$/, controllers.macro_controller);
+router.add(/^\/api\/config\/([a-zA-Z0-9_]+)\/?$/, controllers.config_controller);
+router.add(/^\/api\/logs?\/([a-zA-Z]+)\/?$/, controllers.logs_controller);
+//router.add(/^\/$/, controllers.homepage_controller);
+//router.add(/^\/favicon.ico\/?$/, controllers.favicon_controller);
+//router.add(/^\/www\/([a-zA-Z0-9_\-\.]+)\/?$/, controllers.image_controller);
+router.add(/^\/([a-zA-Z0-9_\-\.]*)\/?$/, controllers.web_page_controller);
 
 // Create and start the HTTP server for receiving command requests
 var server = http.createServer();
@@ -64,7 +64,7 @@ server.listen(settings.httpserver.port, settings.httpserver.ip, 511, function() 
   zeroconf.advertise();
   logger.info('HTTP server running at http://' + settings.httpserver.ip + ":" + settings.httpserver.port);
 });
-logger.info("---------------------- Marantz SR7400 Web Service---------------------- ");
+logger.info("---------------------- Marantz SR7400/SR8400 Web Service---------------------- ");
 
 // Listen for HTTP requests
 server.on('request', requestHandler);

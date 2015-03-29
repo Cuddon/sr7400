@@ -2,8 +2,8 @@
 ##version 1.0.0
 
 ###  API
-    /api/requesttype/requeststring               --> returns a string
-    (Not yet implemented) /api/requesttype/requeststring?return=json   --> returns json (optional)
+    /api/request_type/request_string               --> returns a string
+    (Not yet implemented) /api/request_type/request_string?return=json   --> returns json (optional)
   
 ###  Device commands and status requests
     /api/command/turn_power_on
@@ -20,8 +20,7 @@
     /api/config/mappings
     /api/config/help
 
-###  Logs (all commands return the log) - Not yet implemented
-    /api/logs/get
-    /api/log/get
-    /api/history/get
+###  Logs (all commands return the log)
+    /api/log/request
+    /api/log/error
 

@@ -13,7 +13,7 @@
   "logging" : {
     "logtofile" : true,
     "requestlog" : "./log/request.log",
-    "requestloglevel" : "warn",
+    "requestloglevel" : "info",
     "errorlog" : "./log/error.log",
     "maxfilesize" : 10000000,
     "handleExceptions" : true,

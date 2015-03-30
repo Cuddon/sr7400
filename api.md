@@ -21,6 +21,6 @@
     /api/config/help
 
 ###  Logs (all commands return the log)
-    /api/log/request
-    /api/log/error
+    /api/log/requests
+    /api/log/errors
 

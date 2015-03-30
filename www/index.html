@@ -15,18 +15,21 @@
 
 <body>
     <div class="container">
-        <h1><span class="label label-default">SR7400/SR8400 Surround Sound Receiver Web Service</span></h1>
-        <img src="/marantz-sr7400.jpg">
+        <h1><span class="glyphicon glyphicon-sound-7-1" aria-hidden="true"></span> SR7400/SR8400 Surround Sound Receiver <small>Web Service</small></h1>
+        <div class="center-block"><img class="img-responsive" alt="SR7400" src="/marantz-sr7400.jpg"></div>
+        <p class="lead"><em>SR7400 (or SR8400) surround sound amplifier web service using a Global Cache GC-100 to connect to the SR7400/SR8400 serial port via TCP.</em></p>
         <h2>API structure</h2>
-        <p>/api/request_type/request_string   --> returns a string</p>
-        <p>(Not yet implemented) /api/request_type/request_string?return=json   --> returns json (optional)</p>
-
+<pre>
+/api/request_type/request_string              --> returns string
+/api/request_type/request_string?return=json  --> returns json (optional) ** Not yet implemented **
+</pre>
         <h2>Device commands and status requests</h2>
+        <code>
         <a href="/api/command/turn_power_on">/api/command/turn_power_on</a>
         </br>
         <a href="/api/command/get_power_status">/api/command/get_power_status</a>
         </br>
-
+        </code>
         <h2>Macros</h2>
         <a href="/api/macro/watch_tv_with_surround_sound">/api/macros/watch_tv_with_surround_sound</a>
         <p>/api/macro/run/commands   (Not yet implemented)- commands is a list of commands</p>
@@ -46,6 +49,9 @@
         <a href="/api/log/requests">/api/log/requests</a>
         </br>
         <a href="/api/log/errors">/api/log/errors</a>
+        </br></br>
+
+        <button type="button" class="btn btn-default"><a href="http://www.cuddon.net/p/sr7400-page.html" target="_blank">Cuddon.net</a></button>
         </br></br>
     </div>
 </body>

@@ -2,7 +2,7 @@
 ## Marantz SR7400/SR8400 Web Service
 *Marantz SR7400 (or SR8400) surround sound amplifier web service using a Global Cache GC-100 to connect to the SR7400/SR8400 serial port via TCP.*
 
-Website: http://www.cuddon.net
+Website: http://www.cuddon.net/p/sr7400-page.html
 
 ### Starting the server
 

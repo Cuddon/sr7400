@@ -27,8 +27,7 @@
   ],
     
   "Logs (all these commands return the log)" : [
-    "/api/logs/get",
-    "/api/log/get",
-    "/api/history/get"
+    "/api/log/requests",
+    "/api/log/errors"
   ]
 }

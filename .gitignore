@@ -1,3 +1,8 @@
+##############
+## Webstorm
+##############
+.idea
+
 #################
 ## Eclipse
 #################
@@ -68,7 +73,6 @@ build/
 *.tlb
 *.tli
 *.tlh
-*.tmp
 *.tmp_proj
 #*.log
 *.vspscc
@@ -198,7 +202,6 @@ node_modules
 *.egg
 *.egg-info
 dist/
-build/
 eggs/
 parts/
 var/

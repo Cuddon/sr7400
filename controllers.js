@@ -192,13 +192,17 @@ function logs_controller(request, response, args) {
       } else {
         // Convert data to an array of objects
         data = data.toString().replace(/\r?\n/g, ', ');   // replace /n with a comma
-        data = data.replace(/,\s*$/, "");       // remove trailing command
+        data = data.replace(/,\s*$/, "");       // remove trailing comma
         data = '[' + data + ']';        // Add brackets to make it an array of objects
-        log_data = JSON.parse(data);
-        response.writeHead(200, {'Content-Type': 'application/json'});
-        response.write(JSON.stringify(log_data));
-        response.end();
-        logger.info({request : request.url, response : 'ok'});
+        try {
+          log_data = JSON.parse(data);
+          response.writeHead(200, {'Content-Type': 'application/json'});
+          response.write(JSON.stringify(log_data));
+          response.end();
+          logger.info({request : request.url, response : 'ok'});
+        } catch(err){
+          error_response(500, err, response);
+        }
       }
     });
   } else {
